@@ -1,0 +1,38 @@
+{
+    "cSpell.enabled": false,
+    "chat.mcp.serverSampling": {
+        "03_Apprentissage_Sur_VSCode/.vscode/mcp.json: io.github.ChromeDevTools/chrome-devtools-mcp": {
+            "allowedModels": [
+                "copilot/auto",
+                "copilot/claude-haiku-4.5",
+                "copilot/claude-sonnet-4.5",
+                "copilot/gpt-4.1",
+                "copilot/gpt-4o"
+            ]
+        }
+    },
+    "cSpell.language": "fr,en",
+    "cSpell.enabledLanguageIds": [
+        "javascript",
+        "typescript",
+        "json",
+        "yaml",
+        "powershell"
+    ],
+    "[markdown]": {
+        "cSpell.enabled": false
+    },
+    "[plaintext]": {
+        "cSpell.enabled": false
+    },
+    "cSpell.words": [
+        "Bibliotheque",
+        "bytebase",
+        "dbhub",
+        "definitivement",
+        "linux",
+        "netdata",
+        "pkill",
+        "Zflo"
+    ]
+}

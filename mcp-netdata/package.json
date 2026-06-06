@@ -1,0 +1,20 @@
+﻿{
+    "name": "netdata-mcp",
+    "version": "1.0.0",
+    "description": "MCP server for querying a local Netdata Agent",
+    "type": "module",
+    "main": "netdata-mcp.js",
+    "scripts": {
+        "start": "node netdata-mcp.js"
+    },
+    "keywords": [
+        "mcp",
+        "netdata",
+        "monitoring"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.29.0",
+        "zod": "^3.24.1"
+    }
+}
