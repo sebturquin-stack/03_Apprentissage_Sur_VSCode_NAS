@@ -1,0 +1,9 @@
+﻿.git
+.vscode
+node_modules
+Captures
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store

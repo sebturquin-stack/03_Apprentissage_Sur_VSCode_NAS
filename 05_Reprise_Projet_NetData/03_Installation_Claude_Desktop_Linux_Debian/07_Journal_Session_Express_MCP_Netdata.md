@@ -3,8 +3,8 @@
 But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 
 ## Snapshot Projet (mettre a jour si besoin)
-- Date maj: ____
-- Etat global (OK / A verifier / bloque): ____
+- Date maj: 2026-06-07 23:20
+- Etat global (OK / A verifier / bloque): A verifier
 - Workspace: 03_Apprentissage_Sur_VSCode
 - Zone active: 05_Reprise_Projet_NetData
 - Serveur MCP: mcp-netdata/netdata-mcp.js

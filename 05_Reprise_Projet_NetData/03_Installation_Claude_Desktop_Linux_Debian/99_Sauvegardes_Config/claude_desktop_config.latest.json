@@ -1,0 +1,43 @@
+{
+  "mcpServers": {
+    "netdata-mcp": {
+      "command": "docker",
+      "args": [
+        "exec",
+        "-i",
+        "-e",
+        "NETDATA_BASE_URL=http://172.17.0.1:19999",
+        "-e",
+        "NETDATA_TIMEOUT_MS=5000",
+        "01_Node-20_MCP",
+        "node",
+        "/app/netdata-mcp.js"
+      ]
+    }
+  },
+  "coworkUserFilesPath": "/home/sebastien/Claude",
+  "preferences": {
+    "coworkScheduledTasksEnabled": false,
+    "ccdScheduledTasksEnabled": false,
+    "bypassPermissionsGateByAccount": {
+      "c4a07715-6f22-4755-bee0-abcba36045ec": false
+    },
+    "coworkWebSearchEnabled": true,
+    "coworkModelAutoFallbackByAccount": {
+      "c4a07715-6f22-4755-bee0-abcba36045ec": true
+    },
+    "keepAwakeEnabled": true,
+    "remoteToolsDeviceName": "sebastien-hp-pavilion-notebook",
+    "epitaxyPrefs": {
+      "starred-local-code-sessions": [],
+      "starred-cowork-spaces": [],
+      "starred-session-groups": [],
+      "dframe-local-slice": {
+        "pinnedOrder": [],
+        "customGroupAssignments": {},
+        "customGroupOrder": {}
+      }
+    },
+    "sidebarMode": "chat"
+  }
+}

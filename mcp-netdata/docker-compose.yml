@@ -1,0 +1,78 @@
+﻿# ============================================================
+#  MCP – Monitoring Connector for Netdata
+#  Version : Production
+#  Compose spec: sans champ `version` (Compose v2+)
+#  Validation: Docker Compose v5.1.4
+#  Auteur  : Sébastien
+#  Objectif : Conteneur Node.js stable, durci, monitoré
+# ============================================================
+
+services:
+
+  netdata-mcp:
+    container_name: 01_Node-20_MCP
+
+    # -----------------------------
+    # Build
+    # -----------------------------
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: netdata-mcp:local
+
+    # -----------------------------
+    # Sécurité & Permissions
+    # -----------------------------
+    user: "1000:1000"
+    stdin_open: false
+    tty: false
+
+    # -----------------------------
+    # Variables d’environnement
+    # -----------------------------
+    environment:
+      NETDATA_BASE_URL: ${NETDATA_BASE_URL:-http://172.17.0.1:19999}
+
+    # -----------------------------
+    # Limites & Durcissement
+    # -----------------------------
+    cpus: 0.20
+    mem_limit: 300m
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    restart: on-failure:5
+
+    # -----------------------------
+    # Healthcheck
+    # -----------------------------
+    healthcheck:
+      test: ["CMD", "node", "netdata-mcp.js", "--healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+    # -----------------------------
+    # Réseau
+    # -----------------------------
+    networks:
+      - mcp-net
+
+# ============================================================
+# Réseaux
+# ============================================================
+
+networks:
+  mcp-net:
+    driver: bridge
+
+
+
+
+

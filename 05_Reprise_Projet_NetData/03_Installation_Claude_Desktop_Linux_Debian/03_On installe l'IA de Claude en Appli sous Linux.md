@@ -101,7 +101,6 @@ Dossier keyrings présent	✔️ OK
 Droits sudo fonctionnels	✔️ OK
 Système propre	✔️ OK
 
-
 🧭 Étape suivante (quand tu me confirmes que tout est OK)
 👉 Ajouter le dépôt APT Claude Desktop
 
@@ -289,7 +288,7 @@ Cette clé sert à garantir que les paquets viennent bien du bon dépôt et qu�
 Commande :
 
 Code
-curl -fsSL https://pkg.claude-desktop-debian.dev/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg
+curl -fsSL <https://pkg.claude-desktop-debian.dev/KEY.gpg> | sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg
 ✔️ Sans danger
 ✔️ Réversible
 ✔️ Standard Debian/Ubuntu/Mint
@@ -302,7 +301,7 @@ Code
 Commande :
 
 Code
-echo "deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] https://pkg.claude-desktop-debian.dev stable main" | sudo tee /etc/apt/sources.list.d/claude-desktop.list
+echo "deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] <https://pkg.claude-desktop-debian.dev> stable main" | sudo tee /etc/apt/sources.list.d/claude-desktop.list
 Ce que ça fait :
 
 crée un fichier claude-desktop.list
@@ -355,9 +354,9 @@ Et tu me colles toute la sortie du terminal, comme tu l’as fait avant.
 
 On avance ensemble, proprement, comme une équipe d’ingénieurs.
 
-sebastien@sebastien-HP-Pavilion-Notebook:~/Téléchargements/Téléchargement Edge/claude-desktop-debian-main$ curl -fsSL https://pkg.claude-desktop-debian.dev/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg
-sebastien@sebastien-HP-Pavilion-Notebook:~/Téléchargements/Téléchargement Edge/claude-desktop-debian-main$ echo "deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] https://pkg.claude-desktop-debian.dev stable main" | sudo tee /etc/apt/sources.list.d/claude-desktop.list
-deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] https://pkg.claude-desktop-debian.dev stable main
+sebastien@sebastien-HP-Pavilion-Notebook:~/Téléchargements/Téléchargement Edge/claude-desktop-debian-main$ curl -fsSL <https://pkg.claude-desktop-debian.dev/KEY.gpg> | sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg
+sebastien@sebastien-HP-Pavilion-Notebook:~/Téléchargements/Téléchargement Edge/claude-desktop-debian-main$ echo "deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] <https://pkg.claude-desktop-debian.dev> stable main" | sudo tee /etc/apt/sources.list.d/claude-desktop.list
+deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] <https://pkg.claude-desktop-debian.dev> stable main
 sebastien@sebastien-HP-Pavilion-Notebook:~/Téléchargements/Téléchargement Edge/claude-desktop-debian-main$ sudo apt update
 Atteint :1 http://archive.ubuntu.com/ubuntu noble InRelease
 Réception de :2 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
@@ -398,7 +397,7 @@ C’est exactement ce qu’on voulait.
 Tu vois cette ligne :
 
 Code
-Réception de :12 https://pkg.claude-desktop-debian.dev stable InRelease
+Réception de :12 <https://pkg.claude-desktop-debian.dev> stable InRelease
 ➡️ Le dépôt est bien reconnu
 ➡️ La clé GPG fonctionne
 ➡️ APT valide la signature
@@ -407,7 +406,7 @@ Réception de :12 https://pkg.claude-desktop-debian.dev stable InRelease
 Puis :
 
 Code
-Réception de :17 https://pkg.claude-desktop-debian.dev stable/main amd64 Packages
+Réception de :17 <https://pkg.claude-desktop-debian.dev> stable/main amd64 Packages
 ➡️ Le paquet amd64 est bien disponible
 ➡️ Ton architecture est compatible
 ➡️ Le dépôt est opérationnel
@@ -472,8 +471,6 @@ Je vérifie tout, ligne par ligne, comme un vrai copilote technique.
 On est à deux doigts d’avoir Claude Desktop Linux opérationnel.
 Tu gères ça comme un pro.
 
-
-
 Analyse a la loupe cette capture stp et surtout ligne par ligne, c'est pour que tu es aussi un visu de la sortie du terminal VSCode, defois c'est bien aussi de voir les couleurs de certaines commandes. Une fois que tu as analyser la capture sous tout les angles, on passe a l'étape suivante, c'est à dire cette commande que je n'ai pas encore envoyé car j'attends ton retour, lorsque tu aura la visu du terminal.
 Afficher mes réflexions
 Parfait, là on voit exactement la même chose toi et moi — et ta capture est nickel.
@@ -494,7 +491,7 @@ Tout est propre.
 
 2️⃣ Ajout de la clé GPG
 bash
-curl -fsSL https://pkg.claude-desktop-debian.dev/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg
+curl -fsSL <https://pkg.claude-desktop-debian.dev/KEY.gpg> | sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg
 curl -fsSL → télécharge la clé GPG silencieusement
 
 sudo gpg --dearmor -o /usr/share/keyrings/claude-desktop.gpg → convertit en format binaire et la place dans le dossier des keyrings
@@ -508,8 +505,8 @@ Résultat :
 
 3️⃣ Ajout du dépôt APT
 bash
-echo "deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] https://pkg.claude-desktop-debian.dev stable main" | sudo tee /etc/apt/sources.list.d/claude-desktop.list
-deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] https://pkg.claude-desktop-debian.dev stable main
+echo "deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] <https://pkg.claude-desktop-debian.dev> stable main" | sudo tee /etc/apt/sources.list.d/claude-desktop.list
+deb [signed-by=/usr/share/keyrings/claude-desktop.gpg arch=amd64,arm64] <https://pkg.claude-desktop-debian.dev> stable main
 echo "..." → construit la ligne du dépôt
 
 sudo tee /etc/apt/sources.list.d/claude-desktop.list → écrit cette ligne dans un nouveau fichier de sources
@@ -526,15 +523,15 @@ bash
 sudo apt update
 Puis les lignes :
 
-Atteint :1 http://archive.ubuntu.com/ubuntu noble InRelease
+Atteint :1 <http://archive.ubuntu.com/ubuntu> noble InRelease
 
 Atteint :2 ... noble-updates InRelease
 
-Atteint :3 https://brave-browser-apt-release.s3.brave.com stable InRelease
+Atteint :3 <https://brave-browser-apt-release.s3.brave.com> stable InRelease
 
 Atteint :... → tous tes dépôts habituels OK
 
-Réception de :12 https://pkg.claude-desktop-debian.dev stable InRelease → APT récupère bien le fichier d’index du nouveau dépôt
+Réception de :12 <https://pkg.claude-desktop-debian.dev> stable InRelease → APT récupère bien le fichier d’index du nouveau dépôt
 
 Réception de :16 ... stable/main arm64 Packages
 
@@ -656,8 +653,8 @@ Pas de suppression, pas de mise à jour forcée → installation propre
 134 Mo → normal pour une appli Electron complète.
 
 2️⃣ Téléchargement
-bash
-Réception de :1 https://pkg.claude-desktop-debian.dev ... claude-desktop ... [134 MB]
+
+Réception de :1 <https://pkg.claude-desktop-debian.dev> ... claude-desktop ... [134 MB]
 134 Mo réceptionnés en 5s (28,4 Mo/s)
 Le paquet vient bien de pkg.claude-desktop-debian.dev
 
@@ -731,12 +728,6 @@ ou
 “J’ai une fenêtre d’erreur / ça ne se lance pas”
 
 Et on enchaîne sur la config MCP pour connecter ton conteneur Netdata.
-
-
-
-
-
-
 
 Afficher tout
 Bon il y'a une très très très grosse analyse à faire sur bcp bcp de captures stp, fait cette analyse a la perfection et surtout ligne par ligne, une fois que c'est fait je serais super tranquille, il faut y passer, comme ça c'est fait. Et c'est avec une superbe joie que je te présente l'appli de bureau sous LINUX oui je dis bien sous LINUX et oui elle est la  :  Claude Desktop for Linux Mint 23.3 un truc comme ça et franchement c'est super top, je n'y croyais plus, les recherches ont été casse pieds, meme l'IA de VSCode ne l'avait pas trouvé  ;)  ;)  on est trop mais trop trop fort ahahahah  lool   Aller on paramètre comme des pro stp  ;) .
@@ -1067,7 +1058,7 @@ thème clair/sombre,
 
 mémoire (ON → très utile pour tes projets longs).
 
-13. Prochaine étape logique : MCP Netdata
+1. Prochaine étape logique : MCP Netdata
 Tu as maintenant :
 
 Claude Desktop Linux OK ✅

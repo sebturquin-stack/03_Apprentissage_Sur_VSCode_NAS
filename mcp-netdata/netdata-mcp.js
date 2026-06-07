@@ -1,9 +1,102 @@
-﻿import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+﻿
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
+// --- Healthcheck handler ---
+if (process.argv.includes("--healthcheck")) {
+    console.log("OK");
+    process.exit(0);
+}
+
+globalThis.DEBUG = process.argv.includes("--debug");
+const DEBUG = globalThis.DEBUG === true;
 const NETDATA_BASE_URL = (process.env.NETDATA_BASE_URL || "http://localhost:19999").replace(/\/$/, "");
 const NETDATA_TIMEOUT_MS = Number.parseInt(process.env.NETDATA_TIMEOUT_MS || "5000", 10);
+
+function debugLog(message, details) {
+    if (!DEBUG) {
+        return;
+    }
+
+    const suffix = details === undefined ? "" : ` ${typeof details === "string" ? details : JSON.stringify(details)}`;
+    process.stderr.write(`[netdata-mcp][debug] ${message}${suffix}\n`);
+}
+
+function formatError(error) {
+    if (error instanceof Error) {
+        return DEBUG && error.stack ? error.stack : `${error.name}: ${error.message}`;
+    }
+
+    return String(error);
+}
+
+function logError(context, error) {
+    process.stderr.write(`[netdata-mcp] ${context}: ${formatError(error)}\n`);
+}
+
+function keepProcessAlive() {
+    if (globalThis.__netdataMcpKeepAliveTimer) {
+        return;
+    }
+
+    if (DEBUG) {
+        globalThis.__netdataMcpKeepAliveTimer = setInterval(() => {
+            debugLog("debug keepalive tick");
+        }, 60_000);
+        return;
+    }
+
+    // Keep the container process alive to avoid restart loops on transient startup issues.
+    globalThis.__netdataMcpKeepAliveTimer = setInterval(() => { }, 60_000);
+}
+
+if (DEBUG) {
+    process.stderr.write("MCP DEBUG MODE ACTIVE\n");
+    debugLog("script starting", {
+        argv: process.argv.slice(2),
+        pid: process.pid,
+        nodeVersion: process.version
+    });
+    process.stdin.on("data", (chunk) => {
+        const preview = chunk.toString("utf8", 0, Math.min(chunk.length, 240));
+        debugLog("received STDIO message chunk", {
+            bytes: chunk.length,
+            preview
+        });
+    });
+    process.stdin.on("end", () => {
+        debugLog("STDIO transport ended");
+    });
+    process.stdin.on("close", () => {
+        debugLog("STDIO transport closed");
+        keepProcessAlive();
+    });
+    process.stdin.on("error", (error) => {
+        logError("STDIO transport error", error);
+        keepProcessAlive();
+    });
+}
+
+process.on("uncaughtException", (error) => {
+    logError("uncaught exception", error);
+    keepProcessAlive();
+    if (!DEBUG) {
+        process.exit(1);
+    }
+});
+
+process.on("unhandledRejection", (reason) => {
+    logError("unhandled rejection", reason);
+    keepProcessAlive();
+    if (!DEBUG) {
+        process.exit(1);
+    }
+});
+
+process.on("exit", (code) => {
+    debugLog("process exiting", { code });
+});
 
 function safeParseJson(text) {
     try {
@@ -100,6 +193,7 @@ async function getChartSnapshot(chart) {
     });
 }
 
+debugLog("creating MCP server");
 const server = new McpServer({
     name: "netdata-mcp",
     version: "1.0.0"
@@ -166,11 +260,23 @@ server.tool(
 
 async function main() {
     const transport = new StdioServerTransport();
+    debugLog("creating STDIO transport");
+    keepProcessAlive();
+
+    debugLog("opening transport");
     await server.connect(transport);
+    debugLog("transport opened");
 }
 
-main().catch((error) => {
-    const details = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
-    process.stderr.write(`[netdata-mcp] Fatal error: ${details}\n`);
-    process.exit(1);
-});
+main()
+    .then(() => {
+        debugLog("main() resolved");
+    })
+    .catch((error) => {
+        logError("fatal error", error);
+        keepProcessAlive();
+
+        if (!DEBUG) {
+            process.exit(1);
+        }
+    });

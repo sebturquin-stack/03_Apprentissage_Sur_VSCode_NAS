@@ -901,6 +901,7 @@ Les points vraiment importants pour la suite sont dans detect-host.sh, dependenc
 Pour l’installation, le dépôt est clairement orienté vers Debian/Ubuntu via APT, Fedora/RHEL via DNF, AppImage via Gear Lever, et NixOS via la flake. La doc d’entrée est README.md, avec les détails de build dans building.md, de configuration dans configuration.md, et de diagnostic dans troubleshooting.md. Le repo a aussi une vraie couche de tests et de matrice de validation dans README.md, donc il est pensé pour être installé et vérifié proprement, pas juste compilé.
 
 Je n’ai rien installé ni modifié. Si tu veux, prochaine étape je peux faire l’un de ces trois chemins:
+
 1. te dire la meilleure méthode d’installation selon ta distro exacte,
 2. vérifier les prérequis locaux avant installation,
 3. faire une lecture plus fine d’un sous-système précis, par exemple build, AppImage, APT/DNF ou Cowork.   ----------------------------------------------------------------------------------Je vais comparer proprement les options `.deb` vs AppImage pour ton contexte (Linux Mint + NAS + MCP), sans rien installer, puis te proposer une recommandation claire avec compromis.
@@ -915,17 +916,20 @@ Pour ton contexte précis PC + NAS + projet MCP centralisé, la meilleure option
 2. Windows 10: Claude Desktop officiel en parallèle
 
 Pourquoi ce choix est le plus adapté:
+
 1. Mint est basé Debian/Ubuntu, donc le paquet Debian est le plus naturel et le plus simple à maintenir.
 2. Tu gardes des mises à jour plus propres qu’en AppImage.
 3. Tu restes aligné avec ton objectif multi-OS: Linux et Win10 opérationnels en même temps.
 4. Ton NAS reste le centre de calcul, et les deux clients desktop pilotent le même MCP/monitoring.
 
 Pourquoi je ne recommande pas AppImage comme choix principal:
+
 1. Très pratique pour tester vite.
 2. Moins pratique pour la maintenance longue durée et l’intégration système.
 3. Moins “production perso” que le paquet Debian dans ton scénario.
 
 En résumé décision:
+
 1. Version cible Linux pour ton projet: paquet Debian communautaire
 2. Version cible Windows: officielle
 3. AppImage: uniquement plan B de test rapide, pas socle principal
@@ -942,7 +946,6 @@ Méthodes d’installation	.deb, .rpm, AppImage, Nix flake	APT (Debian/Ubuntu) r
 Comportement Linux	Gestion Wayland/X11, GPU, keyring, tray, daemons	Compatible Mint 22.3 (Ubuntu 24.04)	✅ Fonctionne sur ton système
 Maintenance	APT/DNF pour mises à jour automatiques	AppImage = plan B, pas durable	✅ Choix : paquet Debian
 Intégration MCP	Fichier ~/.config/Claude/claude_desktop_config.json	Commande Docker MCP prête	✅ Parfait pour ton Netdata‑MCP
-
 
 🧠 Lecture stratégique pour ton contexte
 Tu veux :
@@ -968,14 +971,14 @@ compatibilité Mint 22.3 garantie.
 L’AppImage reste utile pour tester ou isoler une version, mais pas pour ton socle principal.
 
 🧩 Grille de décision finale (6 critères)
-Critère	.deb (APT)	AppImage
-Stabilité long terme	✅ Haute	⚠️ Moyenne
-Mises à jour automatiques	✅ Oui (apt upgrade)	❌ Non
-Intégration système (menu, raccourcis)	✅ Totale	⚠️ Partielle
-Compatibilité Mint 22.3	✅ Native	✅ Fonctionnelle
-Maintenance NAS + multi‑OS	✅ Cohérente	⚠️ Manuelle
-Simplicité d’installation	✅ 3 commandes	✅ 1 exécution
-
+| Critère                                | .deb (APT)          | AppImage        |
+|----------------------------------------|---------------------|-----------------|
+| Stabilité long terme                   | ✅ Haute            | ⚠️ Moyenne      |
+| Mises à jour automatiques              | ✅ Oui (apt upgrade)| ❌ Non          |
+| Intégration système (menu, raccourcis) | ✅ Totale           | ⚠️ Partielle    |
+| Compatibilité Mint 22.3                | ✅ Native           | ✅ Fonctionnelle|
+| Maintenance NAS + multi‑OS             | ✅ Cohérente        | ⚠️ Manuelle     |
+| Simplicité d’installation              | ✅ 3 commandes      | ✅ 1 exécution  |
 
 👉 Choix recommandé : .deb via APT
 
