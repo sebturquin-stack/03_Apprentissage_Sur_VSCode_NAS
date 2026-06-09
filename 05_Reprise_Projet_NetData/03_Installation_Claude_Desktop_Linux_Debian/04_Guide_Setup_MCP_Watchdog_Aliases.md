@@ -32,6 +32,10 @@ Fonctions:
 
 - `mcp_netdata_status`
 - `mcp_netdata_logs`
+- `mcp_netdata_diag`
+- `mcp_netdata_journal_last`
+- `mcp_netdata_journal_new`
+- `mcp_netdata_session_start`
 
 Aliases:
 
@@ -41,6 +45,10 @@ Aliases:
 - `mcp-status`: appelle `mcp_netdata_status`.
 - `mcp-logs`: affiche les 200 dernieres lignes de logs watchdog.
 - `mcp-logsf`: suit les logs watchdog en temps reel.
+- `mcp-diag`: lance le diagnostic express MCP Netdata.
+- `mcp-jlast`: affiche les 2 dernieres entrees du journal de session.
+- `mcp-jnew`: ajoute une nouvelle entree pre-remplie dans le journal.
+- `mcp-jstart`: rappel de la regle ultra simple + affichage des 2 dernieres entrees.
 
 ## Procedure recommandee (pas a pas)
 
@@ -72,7 +80,7 @@ Etat attendu:
 ### 4) Verifier les aliases dans un shell interactif
 
 ```bash
-type mcp-start mcp-stop mcp-restart mcp-status mcp-logs mcp-logsf
+type mcp-start mcp-stop mcp-restart mcp-status mcp-logs mcp-logsf mcp-diag mcp-jlast mcp-jnew mcp-jstart
 ```
 
 ### 5) Tests fonctionnels
@@ -80,6 +88,9 @@ type mcp-start mcp-stop mcp-restart mcp-status mcp-logs mcp-logsf
 ```bash
 mcp-start
 mcp-status
+mcp-diag
+mcp-jstart
+mcp-jnew
 mcp-logs
 # sortie avec Ctrl+C
 mcp-logsf
@@ -113,7 +124,7 @@ Cause frequente: verification effectuee dans un shell non interactif.
 Solution:
 
 ```bash
-bash -ic "type mcp-start mcp-stop mcp-status mcp-logs mcp-logsf"
+bash -ic "type mcp-start mcp-stop mcp-status mcp-logs mcp-logsf mcp-diag mcp-jlast mcp-jnew mcp-jstart"
 ```
 
 ### B) Timer actif mais service inactif

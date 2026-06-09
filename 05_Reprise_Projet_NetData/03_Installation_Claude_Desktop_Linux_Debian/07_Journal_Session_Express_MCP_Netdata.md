@@ -3,18 +3,20 @@
 But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 
 ## Snapshot Projet (mettre a jour si besoin)
-- Date maj: 2026-06-07 23:20
-- Etat global (OK / A verifier / bloque): A verifier
+
+- Date maj: 2026-06-09 00:49
+- Etat global (OK / A verifier / bloque): OK
 - Workspace: 03_Apprentissage_Sur_VSCode
 - Zone active: 05_Reprise_Projet_NetData
 - Serveur MCP: mcp-netdata/netdata-mcp.js
 - Variables env importantes:
-  - NETDATA_BASE_URL=____
+  - NETDATA_BASE_URL=http://172.17.0.1:19999
   - NETDATA_TIMEOUT_MS=____
 
 ## Entree Rapide (copier ce bloc)
 
 ### [YYYY-MM-DD HH:MM] | OS: Linux/Win10 | Machine: ____
+
 - Objectif de la session: ____
 - Ce que j ai fait (3 lignes max):
   1. ____
@@ -27,14 +29,17 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): ____
 
 ## Mode d'emploi express (30 sec)
+
 - Debut de session: lire les 2 dernieres entrees de `## Journal`.
 - Pendant la session: ne noter que 3 actions max + 1 prochaine action.
 - Fin de session: ajouter 1 entree avec resultat (`OK`, `Partiel`, `Echec`).
 - En cas de blocage: noter la commande exacte et le message d'erreur brut.
+- Procedure detaillee pas a pas: `08_Procedure_Pas_A_Pas_Journal_MCP_Netdata.md`.
 
 ## Journal
 
-### [2026-06-07 00:00] | OS: Linux | Machine: ____
+### [2026-06-07 00:00] | OS: Linux | Machine:
+
 - Objectif de la session: initialiser ce journal
 - Ce que j ai fait (3 lignes max):
   1. Creation du modele express
@@ -118,6 +123,66 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Commande cle (optionnel): `./start-netdata-mcp.sh status`
 - Fichier(s) touches (optionnel): mcp-netdata/Dockerfile, mcp-netdata/.dockerignore, mcp-netdata/docker-compose.yml, mcp-netdata/start-netdata-mcp.sh
 
+### [2026-06-08 18:31] | OS: Linux | Machine: HP-Pavilion
+- Objectif de la session: fermer proprement la boucle Git et journaliser le workspace clean
+- Ce que j ai fait (3 lignes max):
+  1. Verification des changements Git avant commit/push
+  2. Renommage propre de 5 fichiers dans `04_Container_MCP_Claude-Desktop_CONNECTE`
+  3. Commit global puis push sur la branche `feat/apprentissage-mcp-netdata-linux-win10`
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): reprendre la prochaine evolution du projet avec un workspace deja propre
+- Commande cle (optionnel): `git commit -m "feat: reorganize NetData docs and finalize MCP docker stack"`
+- Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/04_Container_MCP_Claude-Desktop_CONNECTE/`, `mcp-netdata/`, `.vscode/mcp.json`
+
+### [2026-06-08 18:34] | OS: Linux | Machine: HP-Pavilion
+- Objectif de la session: preparer la configuration du mode automatique MCP
+- Ce que j ai fait (3 lignes max):
+  1. Decision de reporter l'automatisation a la prochaine session
+  2. Validation que la base actuelle est deja stable et propre
+  3. Note d'action ajoutee dans le journal pour reprise rapide
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): configurer le mode auto du MCP en suivant les 3 blocs demarrage, verification et reprise
+- Commande cle (optionnel): `docker compose up -d --build`
+- Fichier(s) touches (optionnel): `07_Journal_Session_Express_MCP_Netdata.md`
+
+### [2026-06-09 00:49] | OS: Linux | Machine: HP-Pavilion
+- Objectif de la session: stabiliser MCP avec AppArmor actif avant extinction machines
+- Ce que j ai fait (3 lignes max):
+  1. Diagnostic confirme: profil `docker-mcp` charge mais blocage de `/usr/local/bin/docker-entrypoint.sh`
+  2. Correctif compose applique: `entrypoint` direct vers `/usr/local/bin/node /app/netdata-mcp.js` avec `security_opt` actif
+  3. Validation finale effectuee: conteneur `running`, `Health=healthy`, `RestartCount=0`, test `--healthcheck` OK
+- Resultat: OK
+- Blocage (si oui): profil AppArmor minimal encore trop strict sur `docker-entrypoint.sh`
+- Prochaine action (1 seule): durcir progressivement le profil `docker-mcp` puis retester un retour a l'entrypoint image standard
+- Commande cle (optionnel): `docker inspect 01_Node-20_MCP --format 'AppArmor={{.AppArmorProfile}} | Health={{.State.Health.Status}} | RestartCount={{.RestartCount}}'`
+- Fichier(s) touches (optionnel): `mcp-netdata/docker-compose.yml`, `07_Journal_Session_Express_MCP_Netdata.md`
+
 ## Regle Ultra Simple
 - Toujours finir une session par 1 entree.
 - Toujours commencer une session par la lecture des 2 dernieres entrees.
+
+### [2026-06-09 21:22] | OS: Linux | Machine: sebastien-HP-Pavilion-Notebook
+- Objectif de la session: ____
+- Ce que j ai fait (3 lignes max):
+  1. ____
+  2. ____
+  3. ____
+- Resultat: OK / Partiel / Echec
+- Blocage (si oui): ____
+- Prochaine action (1 seule): ____
+- Commande cle (optionnel): `____`
+- Fichier(s) touches (optionnel): ____
+
+### [2026-06-09 23:48] | OS: Linux | Machine: sebastien-HP-Pavilion-Notebook
+- Objectif de la session: ____
+- Ce que j ai fait (3 lignes max):
+  1. ____
+  2. ____
+  3. ____
+- Resultat: OK / Partiel / Echec
+- Blocage (si oui): ____
+- Prochaine action (1 seule): ____
+- Commande cle (optionnel): `____`
+- Fichier(s) touches (optionnel): ____

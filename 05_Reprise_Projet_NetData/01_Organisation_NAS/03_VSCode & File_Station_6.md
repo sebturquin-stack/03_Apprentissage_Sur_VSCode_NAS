@@ -1,4 +1,90 @@
-﻿Analyse toutes les captures ainsi que le chemin de ces captures stp. Je n'ai pas encore testé l'ouverture des Workspaces, je voulais peut être avant voir s'ils sont vraiment sur le NAS même si j'ai entendu travailler le DD du NAS. J'ai une question aussi ; lorsque je vais mtn enrichir l'un de mes dossiers via VSCode, celui ci va être enregistré sur quoi et ou, au deux endroits ? Faut-il vraiment avoir un doublon ? Je sais pas si tu vois ce que je veux expliquer ?
+﻿## Synthese operationnelle
+
+Objectif:
+
+- Clarifier comment VSCode ecrit sur le NAS via SMB, et fixer une methode propre pour eviter les doublons local/NAS.
+
+Decision retenue:
+
+1. NAS = espace de travail maitre.
+2. Local D: = archive temporaire ou suppression apres validation.
+3. File Station 6 = interface de visualisation/gestion, pas un moteur d ecriture de VSCode.
+
+## Ce que les captures ont confirme
+
+1. Deux copies existaient au moment des tests:
+- Copie locale: D:/08_VSCode_Workspaces
+- Copie NAS: \\SebInfraNAS\InfraData\07_VSCode_Workspaces
+
+2. VSCode ecrit dans le chemin actuellement ouvert.
+
+3. Aucune synchro automatique entre D: et NAS si les deux existent.
+
+## Mecanisme SMB (explication simple)
+
+Quand tu ouvres un fichier sur \\SebInfraNAS\InfraData\..., le flux est:
+1. VSCode demande l ouverture a Windows.
+2. Windows detecte un chemin SMB (serveur distant).
+3. Windows interroge le service SMB du NAS.
+4. Le NAS renvoie le fichier.
+5. A la sauvegarde, VSCode renvoie l ecriture au NAS via Windows/SMB.
+
+Conclusion:
+
+- Le fichier est enregistre sur le NAS, pas dans File Station 6.
+- File Station 6 te montre le resultat, mais ne recoit pas une copie speciale de VSCode.
+
+## Alerte VSCode sur hote non autorise (SebInfraNAS)
+
+Signification:
+
+- Message de securite normal lors de la premiere ouverture d un workspace reseau.
+
+Action recommandee:
+
+1. Cocher l option d autorisation permanente de l hote SebInfraNAS.
+2. Cliquer Allow.
+
+Effet:
+
+- Le workspace NAS s ouvre normalement.
+- Les prochaines ouvertures ne redemandent plus l autorisation.
+
+## Regle anti-doublon
+
+1. Ouvrir les workspaces uniquement depuis le NAS.
+2. Eviter d ouvrir les memes projets depuis D: apres bascule.
+3. Renommer D:/08_VSCode_Workspaces en D:/08_VSCode_Workspaces_OLD apres validation.
+4. Supprimer la copie locale plus tard quand tout est confirme.
+
+## Checklist de validation (par workspace)
+
+1. Ouvrir le .code-workspace depuis \\SebInfraNAS\InfraData\07_VSCode_Workspaces\...
+2. Modifier un fichier .md.
+3. Sauvegarder (Ctrl+S).
+4. Verifier la date de modification cote NAS.
+5. Verifier que le meme fichier local D: n a pas bouge.
+
+## Resultat attendu
+
+- Un seul emplacement vivant pour le travail quotidien:
+- 
+	- \\SebInfraNAS\InfraData\07_VSCode_Workspaces
+- Documentation claire:
+	- synthese en haut
+	- historique a chaud conserve en dessous
+
+## Prochaine action concrete
+
+1. Tester un workspace pilote depuis le NAS.
+2. Valider la checklist ci-dessus.
+3. Passer au dossier/workspace suivant dans le meme ordre.
+
+---
+
+## Historique conversation (conserve)
+
+Analyse toutes les captures ainsi que le chemin de ces captures stp. Je n'ai pas encore testé l'ouverture des Workspaces, je voulais peut être avant voir s'ils sont vraiment sur le NAS même si j'ai entendu travailler le DD du NAS. J'ai une question aussi ; lorsque je vais mtn enrichir l'un de mes dossiers via VSCode, celui ci va être enregistré sur quoi et ou, au deux endroits ? Faut-il vraiment avoir un doublon ? Je sais pas si tu vois ce que je veux expliquer ?
 Sébastien…
 Tes captures sont parfaites — elles confirment que toute ta structure VSCode est bien hébergée sur SebInfraNAS, dans le bon volume InfraData, sous le dossier 07_VSCode_Workspaces.
 Je t’explique tout ça clairement, puis je réponds à ta question sur les enregistrements et les doublons.

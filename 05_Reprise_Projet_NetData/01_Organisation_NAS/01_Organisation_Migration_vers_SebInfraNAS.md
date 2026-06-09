@@ -1,3 +1,176 @@
+﻿# Organisation migration vers SebInfraNAS
+
+## Objectif du document
+
+Ce document sert de reference pour reprendre le projet MCP Netdata sur une base stable,
+avec une organisation claire entre Linux et Win10.
+
+Objectifs prioritaires:
+
+1. Supprimer les blocages de performance observes sur l ancien PC.
+2. Reprendre le projet sans casser l existant.
+3. Garder une documentation traçable, utile et actionnable.
+
+## Contexte resume
+
+Historique projet:
+
+- Le projet est ne pendant les ateliers VS Code (MCP + documentation + tests inter-OS).
+- Une VM Linux etait necessaire pour certains tests (dual-boot non adapte au besoin).
+- Le CPU du poste local etait le goulot d etranglement principal.
+
+Constat cle:
+
+- Le concept technique fonctionnait, mais l environnement etait trop contraint.
+- Le projet n est pas casse: il etait en pause operationnelle.
+
+Evolution actuelle:
+
+- SebInfraNAS devient la base d execution et de stockage.
+- Linux reste la reference technique historique.
+- Win10 devient une piste parallele documentee proprement.
+
+## Decision de cadrage
+
+Decision 1:
+
+- Centraliser les projets VS Code sur l infra NAS (sources + docs + traces).
+
+Decision 2:
+
+- Conserver un tronc commun documentaire.
+- Isoler les procedures specifiques par OS (Linux / Win10).
+
+Decision 3:
+
+- Reprise progressive par etapes courtes, verifiables et journalisees.
+
+## Structure cible (projet)
+
+Arborescence de travail deja en place dans ce workspace:
+
+- 01_Organisation_NAS: cadrage infra et migration
+- 02_Config_Container: configuration conteneur MCP
+- 03_Installation_Claude_Desktop_Linux_Debian: procedures Linux
+- 04_Container_MCP_Claude-Desktop_CONNECTE: diagnostics et resolutions
+- 05_Grosse_Feuille_De_Route: chantiers de stabilisation
+- 06_Installation_Claude_Desktop_Win10: procedures Win10
+
+Regle de rangement:
+
+1. Concept commun -> dossier commun.
+2. Procedure OS-specifique -> dossier OS correspondant.
+3. Toujours ajouter des liens croises Linux <-> Win10 si le sujet est proche.
+
+## Plan de relance (version pratique)
+
+### Phase 1 - Stabiliser la base Linux (reference)
+
+Attendus:
+
+- Conteneur MCP stable
+- Healthcheck OK
+- Journal Linux a jour
+
+Verification minimale:
+
+1. Conteneur running
+2. Health status healthy
+3. Test outil MCP OK
+
+### Phase 2 - Demarrage Win10 (parallele)
+
+Attendus:
+
+- Prerequis Win10 verifies
+- Docker Desktop operationnel
+- Premiere connexion MCP documentee
+
+Point d entree Win10:
+
+- 06_Installation_Claude_Desktop_Win10/01_README_Claude_Desktop_Win10.md
+- 06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md
+
+### Phase 3 - Alignement Linux / Win10
+
+Attendus:
+
+- Methodes equivalentes
+- Differences explicites (chemins, commandes, services)
+- Pas de conflit de documentation
+
+## Sujets sensibles a surveiller
+
+1. Demarrage auto MCP
+2.
+- Historique: une boucle de demarrage auto avait ete desactivee pour proteger la stabilite.
+-
+- Regle: ne pas reactiver un auto-start sans validation prealable du flux complet.
+
+1. Configuration JSON historique
+- Un JSON critique existe dans le contexte ancien (QG reseau).
+- Regle: toute reactivation doit etre tracee et testee avec rollback simple.
+
+1. Charge machine
+- Eviter de recreer la dette CPU de l ancien poste.
+- Prioriser execution sur infra stable (NAS / conteneur bien calibre).
+
+## Methode de travail recommandee
+
+Rythme:
+
+1. Ouvrir 1 fichier
+2. Nettoyer la structure
+3. Ajouter une section Verifications
+4. Definir 1 prochaine action
+
+Qualite minimum par fichier:
+
+- Un objectif clair
+- Des etapes executables
+- Un resultat attendu
+- Une sortie de secours en cas d erreur
+
+## Checklist de reprise quotidienne
+
+Debut de session:
+
+1. Lire les 2 dernieres entrees du journal actif
+2. Lire la prochaine action
+3. Ouvrir le fichier chantier du jour
+
+Fin de session:
+
+1. Renseigner le journal (3 actions max)
+2. Noter un resultat (OK / Partiel / Echec)
+3. Definir une prochaine action unique
+
+## Liens de reference internes
+
+- Index global Linux + Win10:
+  - 05_Reprise_Projet_NetData/00_Index_Documentation_Linux_Win10.md
+- Journal Linux:
+  - 05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md
+- Procedure detaillee journal Linux:
+  - 05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/08_Procedure_Pas_A_Pas_Journal_MCP_Netdata.md
+- README Win10:
+  - 05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/01_README_Claude_Desktop_Win10.md
+- Journal Win10:
+  - 05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md
+
+## Prochaine action recommandee
+
+Demain (Win10):
+
+1. Suivre le README Win10
+2. Verifier Docker Desktop
+3. Valider le premier test MCP
+4. Renseigner la premiere entree complete du journal Win10
+
+---
+
+## Historique conversation restaure (source Git: 448ba9d)
+
 ﻿Bonjour Mon assistant Copilot, j'ai envi de reprendre le pojet que nous avions commencé sur VSCode, il y avait toi Claude et moi, par contre mon pc n'a pas réussi a nous suivre car le CPU est trop faible. Normalement avec SebInfraNAS, il ne devrai plus y avoir de prob. Je sais pas si tu te souviens de ce projet ? Claude avait tout codé le programme, on avait essauyé de faire parler, Linux et Windows, il devait se connecter pour faire tourner le programme. Je ne me souviens plus de tout les détails, tout ce qui m'a fort marqué, c'est que nous avions vu les limites de mon pc. J'espere que tu te souviens de tout cela, car je ne crois pas avoir tout documenter et c'est bien dommage, c'est ça que j'aime lorsque tu documente, tu as tjs une traçe de ce que tu fait, ou de ce que tu as fait.
 Oui, je m’en souviens très bien, Sébastien 🙂
 C’était un projet passionnant et ambitieux : on avait tenté de faire dialoguer Linux et Windows via VSCode, avec Claude qui codait la partie “pont” réseau et toi qui gérais la logique système. L’idée était de créer une interopérabilité directe entre tes environnements, pour que ton poste Linux puisse exécuter ou piloter des scripts sur Windows (et inversement).
