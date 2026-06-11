@@ -10,7 +10,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Zone active: 05_Reprise_Projet_NetData
 - Serveur MCP: mcp-netdata/netdata-mcp.js
 - Variables env importantes:
-  - NETDATA_BASE_URL=http://172.17.0.1:19999
+  - NETDATA_BASE_URL=<http://172.17.0.1:19999>
   - NETDATA_TIMEOUT_MS=____
 
 ## Entree Rapide (copier ce bloc)
@@ -38,7 +38,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 
 ## Journal
 
-### [2026-06-07 00:00] | OS: Linux | Machine:
+### [2026-06-07 00:00] | OS: Linux | Machine HP-Pavilion
 
 - Objectif de la session: initialiser ce journal
 - Ce que j ai fait (3 lignes max):
@@ -52,6 +52,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): 07_Journal_Session_Express_MCP_Netdata.md
 
 ### [2026-06-07 11:20] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: comprendre la deconnexion Claude MCP
 - Ce que j ai fait (3 lignes max):
   1. Controle Docker + etat conteneur MCP
@@ -64,6 +65,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): 05_Memo_Express_MCP_Netdata.md
 
 ### [2026-06-07 11:45] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: confirmer la reprise MCP apres correction CIFS
 - Ce que j ai fait (3 lignes max):
   1. Validation montage `/mnt/infradata` (OK)
@@ -76,6 +78,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): 07_Journal_Session_Express_MCP_Netdata.md
 
 ### [2026-06-07 12:05] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: ajouter une commande unique de diag express
 - Ce que j ai fait (3 lignes max):
   1. Creation de la commande one-shot de verification MCP
@@ -88,6 +91,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): 05_Memo_Express_MCP_Netdata.md
 
 ### [2026-06-07 12:40] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: integrer une capture de contexte au projet
 - Ce que j ai fait (3 lignes max):
   1. Archivage de la capture avec nom date dans `Captures/`
@@ -100,6 +104,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): 05_Memo_Express_MCP_Netdata.md
 
 ### [2026-06-07 12:55] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: creer un alias ultra-court pour le diag express
 - Ce que j ai fait (3 lignes max):
   1. Ajout fonction `mcp_netdata_diag` dans `setup_mcp_v2.sh`
@@ -112,6 +117,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): mcp-netdata/setup_mcp_v2.sh, 05_Memo_Express_MCP_Netdata.md
 
 ### [2026-06-07 23:20] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: finaliser la stack Docker propre avant cloture
 - Ce que j ai fait (3 lignes max):
   1. Dockerfile propre ajoute et valide (healthcheck + user 1000)
@@ -124,6 +130,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): mcp-netdata/Dockerfile, mcp-netdata/.dockerignore, mcp-netdata/docker-compose.yml, mcp-netdata/start-netdata-mcp.sh
 
 ### [2026-06-08 18:31] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: fermer proprement la boucle Git et journaliser le workspace clean
 - Ce que j ai fait (3 lignes max):
   1. Verification des changements Git avant commit/push
@@ -136,6 +143,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/04_Container_MCP_Claude-Desktop_CONNECTE/`, `mcp-netdata/`, `.vscode/mcp.json`
 
 ### [2026-06-08 18:34] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: preparer la configuration du mode automatique MCP
 - Ce que j ai fait (3 lignes max):
   1. Decision de reporter l'automatisation a la prochaine session
@@ -148,6 +156,7 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): `07_Journal_Session_Express_MCP_Netdata.md`
 
 ### [2026-06-09 00:49] | OS: Linux | Machine: HP-Pavilion
+
 - Objectif de la session: stabiliser MCP avec AppArmor actif avant extinction machines
 - Ce que j ai fait (3 lignes max):
   1. Diagnostic confirme: profil `docker-mcp` charge mais blocage de `/usr/local/bin/docker-entrypoint.sh`
@@ -160,29 +169,32 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Fichier(s) touches (optionnel): `mcp-netdata/docker-compose.yml`, `07_Journal_Session_Express_MCP_Netdata.md`
 
 ## Regle Ultra Simple
+
 - Toujours finir une session par 1 entree.
 - Toujours commencer une session par la lecture des 2 dernieres entrees.
 
 ### [2026-06-09 21:22] | OS: Linux | Machine: sebastien-HP-Pavilion-Notebook
-- Objectif de la session: ____
+
+- Objectif de la session: automatiser le journal puis structurer la documentation Linux/Win10
 - Ce que j ai fait (3 lignes max):
-  1. ____
-  2. ____
-  3. ____
-- Resultat: OK / Partiel / Echec
-- Blocage (si oui): ____
-- Prochaine action (1 seule): ____
-- Commande cle (optionnel): `____`
-- Fichier(s) touches (optionnel): ____
+  1. Ajout des commandes `mcp-jstart`, `mcp-jlast`, `mcp-jnew` et test du flux de session
+  2. Reprise des docs `01_Organisation_NAS` avec synthese operationnelle + historique conserve
+  3. Durcissement et verification de `mcp-netdata/setup_mcp.sh`, puis commit global de la session
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): reprendre demain la revue des fichiers suivants `01_Organisation_NAS` dossier par dossier
+- Commande cle (optionnel): `git commit -m "chore: durcir setup MCP et structurer la documentation Linux/Win10"`
+- Fichier(s) touches (optionnel): `mcp-netdata/setup_mcp.sh`, `mcp-netdata/setup_mcp_v2.sh`, `05_Reprise_Projet_NetData/01_Organisation_NAS/`, `07_Journal_Session_Express_MCP_Netdata.md`
 
 ### [2026-06-09 23:48] | OS: Linux | Machine: sebastien-HP-Pavilion-Notebook
-- Objectif de la session: ____
+
+- Objectif de la session: cloturer proprement la session avec script stable et journal complete
 - Ce que j ai fait (3 lignes max):
-  1. ____
-  2. ____
-  3. ____
-- Resultat: OK / Partiel / Echec
-- Blocage (si oui): ____
-- Prochaine action (1 seule): ____
-- Commande cle (optionnel): `____`
-- Fichier(s) touches (optionnel): ____
+  1. Verification finale `bash -n mcp-netdata/setup_mcp.sh` apres durcissement du wrapper
+  2. Commit effectue sur la branche `feat/apprentissage-mcp-netdata-linux-win10` (hash `f1e53b8`)
+  3. Journal renseigne avec actions, resultat et prochaine action de reprise
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): demain soir reprendre la revue doc Linux fichier par fichier en conservant le format synthese + historique
+- Commande cle (optionnel): `mcp-jstart`
+- Fichier(s) touches (optionnel): `mcp-netdata/setup_mcp.sh`, `05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md`

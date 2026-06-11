@@ -1,6 +1,7 @@
 ﻿# README - Installation Claude Desktop + MCP Netdata sur Win10
 
 But:
+
 - Reproduire un flux stable cote Win10 sans casser la base Linux.
 - Documenter chaque etape avec verifications concretes.
 
@@ -36,15 +37,18 @@ Commandes a lancer dans terminal Win10:
 3. docker info
 
 Attendu:
+
 - Pas d erreur de connexion daemon
 - Contexte docker fonctionnel
 
 ## Configuration MCP (principe)
 
 Objectif:
+
 - Faire pointer Claude Desktop vers le serveur MCP Netdata (conteneur ou process selon ton choix d exploitation Win10).
 
 A documenter dans ce dossier:
+
 - Le fichier de config exact utilise sous Win10
 - La commande exacte de lancement MCP
 - Les variables env appliquees (NETDATA_BASE_URL, timeout)
@@ -52,15 +56,18 @@ A documenter dans ce dossier:
 ## Verification MCP minimale
 
 Demander ensuite dans Claude:
+
 1. get_netdata_info
 2. get_cpu_snapshot
 
 Attendu:
+
 - Reponse outillee sans erreur network_error
 
 ## Journal de session Win10
 
 A la fin de chaque session Win10:
+
 - Creer une entree dans un journal Win10 dedie (a creer au prochain fichier)
 - Noter 3 actions max, 1 blocage, 1 prochaine action
 

@@ -1,16 +1,11 @@
 ﻿Maintenant, on installe les MCP de Atelier I, ceux que j’ai sélectionnés pour être :
 
-stables
-
-utiles
-
-transverses
-
-adaptés à un profil maître
-
-faciles à comprendre
-
-faciles à documenter
+- stables
+- utiles
+- transverses
+- adaptés à un profil maître
+- faciles à comprendre
+- faciles à documenter
 
 👉 GitHub MCP
 👉 Chrome DevTools MCP
@@ -21,136 +16,126 @@ On installe les deux premiers maintenant, et DBHub si tu veux ensuite.
 🟦 1) MCP n°1 — GitHub MCP
 C’est LE MCP indispensable pour un profil maître.
 
-🎯 Ce qu’il apporte
-accès aux repos GitHub
+🎯 Ce qu’il apporte:
 
-recherche dans les fichiers
-
-lecture des issues
-
-navigation dans les PR
-
-génération de documentation
-
-analyse de code
-
-interactions IA + GitHub
+- accès aux repos GitHub
+- recherche dans les fichiers
+- lecture des issues
+- navigation dans les PR
+- génération de documentation
+- analyse de code
+- interactions IA + GitHub
 
 🟩 Installation (simple)
-Ouvre Atelier I
 
-Va dans Extensions
+. Ouvre Atelier I
+. Va dans Extensions
 
 Cherche :
-GitHub MCP
 
-Clique sur Installer
+. GitHub MCP
+. Clique sur Installer
 
 VSCode va automatiquement :
 
-ajouter le serveur MCP
-
-créer la config
-
-activer le serveur
-
-afficher la vue MCP
+- ajouter le serveur MCP
+- créer la config
+- activer le serveur
+- afficher la vue MCP
 
 🟩 Vérification
-Ctrl + Shift + P
 
-Tape : MCP: Show View
+. Ctrl + Shift + P
 
-Tu dois voir :
-GitHub MCP — Running
+- Tape : MCP: Show View
+- Tu dois voir :
 
-Si oui → parfait.
+. GitHub MCP — Running
+. Si oui → parfait.
 
-🟦 2) MCP n°2 — Chrome DevTools MCP
+🟦 2) MCP n°2 — Chrome DevTools
+
 C’est le MCP le plus stable et le plus simple pour tester la mécanique.
 
-🎯 Ce qu’il apporte
-console DevTools
+🎯 Ce qu’il apporte:
 
-logs
-
-network
-
-inspection
-
-debugging léger
-
-interactions IA + navigateur
+- console DevTools
+- logs
+- network
+- inspection
+- debugging léger
+- interactions IA + navigateur
 
 🟩 Installation
-Extensions
+
+- Extensions
 
 Cherche :
-Chrome DevTools MCP
 
-Installer
-
-VSCode active automatiquement le serveur
+- Chrome DevTools MCP
+- Installer
+- VSCode active automatiquement le serveur
 
 🟩 Vérification
 Même procédure :
 
-Ctrl + Shift + P
-
-MCP: Show View
+. Ctrl + Shift + P
+. MCP: Show View
 
 Tu dois voir :
-Chrome DevTools MCP — Running
+
+. Chrome DevTools MCP — Running
 
 🟦 3) MCP n°3 — DBHub MCP (optionnel mais très utile)
-🎯 Ce qu’il apporte
-accès SQLite
 
-requêtes
+🎯 Ce qu’il apporte:
 
-extraction de données
-
-génération de documentation technique
-
-parfait pour Atelier I
+- accès SQLite
+- requêtes
+- extraction de données
+- génération de documentation technique
+- parfait pour Atelier I
 
 🟩 Installation
 Même procédure :
-Extensions → DBHub MCP → Installer
+
+. Extensions → DBHub MCP → Installer
 
 🟦 4) Résultat attendu dans Atelier I
 Dans la vue MCP, tu dois voir :
 
 Code
-GitHub MCP — Running
-Chrome DevTools MCP — Running
-(DBHub MCP — Running)  ← si tu l’installes
-Et dans ton fichier mcp.json (géré automatiquement par VSCode), tu verras les serveurs déclarés proprement.
+. GitHub MCP — Running
+. Chrome DevTools MCP — Running
+. (DBHub MCP — Running)  ← si tu l’installes
+. Et dans ton fichier mcp.json (géré automatiquement par VSCode), tu verras les serveurs déclarés proprement.
 
 🟩 5) Quand tu as installé les deux MCP (ou trois), tu me dis :
 Code
-Atelier I — MCP installés.
-Et on enchaîne direct sur :
+. Atelier I — MCP installés.
+. Et on enchaîne direct sur :
 
 👉 Atelier II — Documentation (avec Notion MCP + GitHub MCP)
 👉 Atelier III — DevOps (Chrome DevTools MCP + Azure MCP + Playwright MCP)
 
-Tu avances comme un vrai architecte VSCode.
+. Tu avances comme un vrai architecte VSCode.
 
-Je te copi tout ce que j'ai sous les yeux car il n'y a rien qui se lance comme tal l'heure    ::::       🌟 github-mcp-plus 🚀
+- Je te copie tout ce que j'ai sous les yeux car il n'y a rien qui se lance comme tal l'heure    ::::       🌟 github-mcp-plus 🚀
 npm version License: MIT
 
-An enhanced, open-source developer friendly, Node.js-based implementation of the official GitHub Model Context Protocol (MCP) Server.
+- An enhanced, open-source developer friendly, Node.js-based implementation of the official GitHub Model Context Protocol (MCP) Server.
 
-Unlike the official GitHub MCP server which requires a heavy Docker setup, this version runs purely on Node.js and can be easily executed using npx. It includes 50 elite tools covering every major GitHub workflow — from PR reviews to CI status checking — making it the most comprehensive GitHub MCP server available.
+- Unlike the official GitHub MCP server which requires a heavy Docker setup, this version runs purely on Node.js and can be easily executed using npx. It includes 50 elite tools covering every major GitHub workflow — from PR reviews to CI status checking — making it the most comprehensive GitHub MCP server available.
 
-Ultimate Tool for GSoC & Open-Source Contributors. Fork repos, sync with upstream, check CI status, review PRs, comment on issues, manage labels, search code, and star projects — all via your AI assistant.
+- Ultimate Tool for GSoC & Open-Source Contributors. Fork repos, sync with upstream, check CI status, review PRs, comment on issues, manage labels, search code, and star projects — all via your AI assistant.
 
 ✨ Why github-mcp-plus?
-Feature Official (Docker) github-mcp-plus
-Setup Docker required npx — zero install
-Runtime Go binary in container Native Node.js
-Tool Count ~40 50 (Elite)
+
+. Feature Official (Docker) github-mcp-plus
+. Setup Docker required npx — zero install
+. Runtime Go binary in container Native Node.js
+. Tool Count ~40 50 (Elite)
+
 CI Status (Checks) ❌ ✅
 Fork Synchronization ❌ ✅
 PR Review Comments ❌ ✅
@@ -160,8 +145,10 @@ Commit Diffs ❌ ✅
 Fork Repos ❌ ✅
 Star/Unstar ❌ ✅
 Gist Management ❌ ✅
+
 🛠️ The "Big 50" Toolset
 📂 Repository Management (20 tools)
+
 Tool Description
 get_repository Get repo details (includes parents of forks)
 sync_fork Merges upstream changes into your fork
@@ -276,38 +263,39 @@ Je t’explique clairement, sans flou, sans bullshit, ce que tu as sous les yeux
 Et c’est EXACTEMENT pour ça que :
 
 Code
-npx -y github-mcp-plus@latest
+. npx -y github-mcp-plus@latest
+
 te renvoie :
 
 Code
-npm error 404
+. npm error 404
+
 Parce que :
 
 ❌ Le package n’est pas publié sur npm
 ❌ Il n’existe pas dans le registre public
 ✔️ Il existe uniquement sur GitHub
 ✔️ Il peut être installé via GitHub, pas via npm
+
 C’est pour ça que ton IA dans VSCode :
 
-cherche
-
-teste
-
-scanne npm
-
-ne trouve rien
-
-et te dit que le package n’existe pas
+- cherche
+- teste
+- scanne npm
+- ne trouve rien
+- et te dit que le package n’existe pas
 
 Elle a raison.
 
 🟦 2) Ce que tu as trouvé est un serveur MCP avancé, mais…
+
 ✔️ Il est réel
 ✔️ Il est open‑source
 ✔️ Il est puissant
 ✔️ Il expose 50 outils GitHub
 ✔️ Il peut fonctionner avec VSCode
 ❌ MAIS il faut l’installer depuis GitHub, pas depuis npm
+
 Et ça, c’est la partie que ton IA n’a pas encore comprise.
 
 🟦 3) Comment installer github‑mcp‑plus réellement ?
@@ -316,23 +304,23 @@ Il y a 2 méthodes :
 🟩 MÉTHODE 1 — Installation via GitHub (recommandée)
 Va sur le repo GitHub du projet
 
-Télécharge le code (zip)
-
-Décompresse dans un dossier
-
-Ouvre un terminal dans ce dossier
+. Télécharge le code (zip)
+. Décompresse dans un dossier
+. Ouvre un terminal dans ce dossier
 
 Installe les dépendances :
 
 Code
-npm install
+. npm install
+
 Lance le serveur MCP :
 
 Code
-node server.js
-Dans ton mcp.json, tu mets :
+. node server.js
 
+Dans ton mcp.json, tu mets :
 json
+
 {
   "mcpServers": {
     "github-plus": {
@@ -344,6 +332,7 @@ json
     }
   }
 }
+
 👉 Et là, VSCode va détecter le serveur et l’afficher dans MCP: Show View.
 
 🟩 MÉTHODE 2 — Installation via VSIX (extension VSCode)
@@ -352,15 +341,14 @@ Le projet explique que tu peux :
 Compiler l’extension :
 
 Code
-npm install
-npm run package-extension
+. npm install
+. npm run package-extension
+
 Installer le fichier .vsix dans VSCode :
 
-Ctrl + Shift + P
-
-Extensions: Install from VSIX
-
-Choisir github-mcp-plus-1.2.0.vsix
+- Ctrl + Shift + P
+- Extensions: Install from VSIX
+- Choisir github-mcp-plus-1.2.0.vsix
 
 👉 Et là, le MCP s’installe automatiquement.
 
@@ -376,9 +364,8 @@ Mais manuellement, via GitHub ou VSIX.
 ✔️ Pour Atelier I, le plus simple et le plus propre reste :
 GitHub MCP (officiel)
 
-Chrome DevTools MCP
-
-DBHub MCP (optionnel)
+- Chrome DevTools MCP
+- DBHub MCP (optionnel)
 
 ✔️ github‑mcp‑plus est un MCP “expert”
 Tu peux l’installer plus tard, quand tu seras à l’aise.
@@ -389,43 +376,36 @@ Pour Atelier I :
 ✔️ Installer les MCP simples et officiels
 GitHub MCP
 
-Chrome DevTools MCP
-
-DBHub MCP
+- Chrome DevTools MCP
+- DBHub MCP
 
 ❌ Ne pas installer github‑mcp‑plus maintenant
 Parce que :
 
-il demande un token GitHub
-
-il demande une installation manuelle
-
-il demande un serveur Node dédié
-
-il demande une config avancée
-
-il n’est pas encore packagé pour npm
+- il demande un token GitHub
+- il demande une installation manuelle
+- il demande un serveur Node dédié
+- il demande une config avancée
+- il n’est pas encore packagé pour npm
 
 Tu vas perdre du temps pour rien.
 
 🟩 Si tu veux, on peut installer github‑mcp‑plus plus tard
 Quand :
 
-Atelier I sera figé
-
-Atelier II sera créé
-
-Atelier III sera créé
-
-Tu auras testé les MCP officiels
-
-Tu seras à l’aise avec la mécanique
+. Atelier I sera figé
+. Atelier II sera créé
+. Atelier III sera créé
+. Tu auras testé les MCP officiels
+. Tu seras à l’aise avec la mécanique
 
 Et là, on fera une installation propre, manuelle, documentée.
 
 🟦 Tu me dis juste :
+
 Code
-OK, on installe les MCP officiels pour Atelier I.
+. OK, on installe les MCP officiels pour Atelier I.
+
 Et on avance.
 
 OK, on installe les MCP officiels pour Atelier I.
@@ -478,17 +458,12 @@ Uniquement disponible en version Docker (lourde) ou via projets GitHub non publi
 ❌ github‑mcp‑plus
 Existe, mais :
 
-pas publié sur npm
-
-pas publié sur le Marketplace
-
-installation manuelle uniquement
-
-demande un token GitHub
-
-demande un serveur Node dédié
-
-demande une config avancée
+- pas publié sur npm
+- pas publié sur le Marketplace
+- installation manuelle uniquement
+- demande un token GitHub
+- demande un serveur Node dédié
+- demande une config avancée
 
 👉 On le garde pour plus tard, quand tu seras à l’aise avec les MCP officiels.
 
@@ -496,24 +471,21 @@ demande une config avancée
 ⭐ Atelier I — MCP officiels recommandés
 Chrome DevTools MCP
 
-DBHub MCP
-
-Netdata MCP (optionnel)
+. DBHub MCP
+. Netdata MCP (optionnel)
 
 👉 Ces trois MCP sont réels, officiels, installables, stables, parfaits pour un profil maître.
 
 🟦 Ce que tu dois faire maintenant
 Dans Atelier I :
 
-Ouvre Extensions
+. Ouvre Extensions
 
 Installe :
 
-Chrome DevTools MCP
-
-DBHub MCP
-
-(optionnel) Netdata MCP
+. Chrome DevTools MCP
+. DBHub MCP
+. (optionnel) Netdata MCP
 
 Ensuite :
 Ctrl + Shift + P → MCP: Show View
@@ -521,9 +493,10 @@ Ctrl + Shift + P → MCP: Show View
 Tu verras :
 
 Code
-Chrome DevTools MCP — Running
-DBHub MCP — Running
-(Netdata MCP — Running)
+. Chrome DevTools MCP — Running
+. DBHub MCP — Running
+. (Netdata MCP — Running)
+
 🟩 Quand tu as installé les MCP officiels, tu me dis :
 Code
 Atelier I — MCP installés.

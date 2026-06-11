@@ -1,6 +1,7 @@
 ﻿# Index Documentation Linux + Win10 - Projet MCP Netdata
 
 Objectif:
+
 - Garder une documentation claire, duale et evolutive.
 - Eviter les doublons inutiles.
 - Permettre une reprise rapide selon l OS utilise.
@@ -31,18 +32,22 @@ Objectif:
 ## Methode pour migrer la doc existante vers le mode dual
 
 Etape 1 - Identifier le type du document
+
 - Type A: concept commun
 - Type B: procedure OS-specifique
 
 Etape 2 - Choisir la forme
+
 - Type A: rester dans le dossier commun
 - Type B Linux: rester dans 03_...
 - Type B Win10: creer/ecrire dans 06_...
 
 Etape 3 - Lier les documents
+
 - Ajouter dans chaque fichier un bloc Voir aussi vers l equivalent Linux ou Win10
 
 Etape 4 - Valider avec une checklist
+
 - Le lecteur sait quoi faire sans connaissance implicite
 - Les commandes sont testables telles quelles
 - Les chemins sont explicites
@@ -50,11 +55,13 @@ Etape 4 - Valider avec une checklist
 ## Demarrage quotidien (routine)
 
 Debut:
+
 1. Lire les 2 dernieres entrees du journal
 2. Lire la Prochaine action
 3. Ouvrir le fichier du chantier du jour
 
 Fin:
+
 1. Completer le journal de session
 2. Mettre a jour la Prochaine action
 3. Ajouter un lien vers la preuve (capture/log) si besoin
@@ -62,9 +69,11 @@ Fin:
 ## Dossier Win10 (demarrage demain)
 
 Point d entree:
+
 - 06_Installation_Claude_Desktop_Win10/01_README_Claude_Desktop_Win10.md
 
 Objectif du jour 1 Win10:
+
 - Poser les prerequis
 - Verifier Docker Desktop
 - Valider la connexion MCP
