@@ -6,7 +6,7 @@ But:
 
 ## Snapshot Projet (mettre a jour si besoin)
 
-- Date maj: 2026-06-12 23:10
+- Date maj: 2026-06-13 03:06
 - Etat global (OK / A verifier / bloque): A verifier
 - OS: Win10
 - Workspace: 03_Apprentissage_Sur_VSCode
@@ -36,6 +36,30 @@ But:
 - Pendant la session: ne noter que 3 actions max + 1 prochaine action.
 - Fin de session: ajouter 1 entree avec resultat (OK, Partiel, Echec).
 - En cas de blocage: noter la commande exacte et le message d erreur brut.
+
+## Verification post-durcissement (copier-coller)
+
+Commande 1:
+
+`cd /mnt/c/Users/sebtu/SebInfra_Dev/MCP`
+
+Commande 2:
+
+`docker compose up -d --build`
+
+Commande 3:
+
+`docker compose ps ; docker inspect 01_Node-20_MCP --format '{{.HostConfig.ReadonlyRootfs}} | {{.HostConfig.SecurityOpt}} | {{.HostConfig.CapDrop}}'`
+
+Lecture attendue:
+
+- `ReadonlyRootfs=true`
+- `SecurityOpt` contient `no-new-privileges:true`
+- `CapDrop` contient `ALL`
+
+Trace journal suggeree:
+
+- Verification post-durcissement OK: rootfs read-only actif, no-new-privileges actif, cap_drop=ALL confirme sur `01_Node-20_MCP`.
 
 ## Journal
 
@@ -80,27 +104,40 @@ But:
 
 ### [2026-06-12 23:10] | OS: Win10 | Machine: SEB-LAPTOP-AX200
 
-- Objectif de la session: finaliser Docker Desktop et preparer la base MCP dans Ubuntu WSL2
-- Ce que j ai fait (3 lignes max):
-  1. Revue complete de la configuration Docker Desktop (WSL2, reseau, builders, updates, extensions)
-  2. Validation du chemin projet Win10/WSL2 puis creation de la structure `C:/Users/sebtu/SebInfra_Dev/MCP`
-  3. Creation et verification des fichiers MCP (`Dockerfile`, `docker-compose.yml`, `.env`, `README.md`) + arborescence validee avec `tree`
+- Objectif de la session: finaliser Docker Desktop et préparer la base MCP dans Ubuntu WSL2
+- Ce que j'ai fait (3 lignes max):
+  1. Revue complète de la configuration Docker Desktop (WSL2, réseau, builders, updates, extensions)
+  2. Validation du chemin projet Win10/WSL2 puis création de la structure `C:/Users/sebtu/SebInfra_Dev/MCP`
+  3. Création et vérification des fichiers MCP (`Dockerfile`, `docker-compose.yml`, `.env`, `README.md`) + arborescence validée avec `tree`
 - Resultat: Partiel
-- Blocage (si oui): aucun blocage critique, lancement du conteneur MCP reporte a la prochaine session
-- Prochaine action (1 seule): lancer `docker compose build` puis `docker compose up -d` dans `SebInfra_Dev/MCP` et verifier `docker ps` + logs
+- Blocage (si oui): aucun blocage critique, lancement du conteneur MCP reporté à la prochaine session
+- Prochaine action (1 seule): lancer `docker compose build` puis `docker compose up -d` dans `SebInfra_Dev/MCP` et vérifier `docker ps` + logs
 - Commande cle (optionnel): `tree /mnt/c/Users/sebtu/SebInfra_Dev/MCP`
 - Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/07_Installer_Fondations_Techniques_Windows.10/05_Configuration_Complète_Docker_Desktop.md`, `05_Reprise_Projet_NetData/08_Vérifier_Docker_Depuis_Ubuntu_WSL2/01_Docker_Préparer_MCP_Ubuntu_Win10.md`, `05_Reprise_Projet_NetData/08_Vérifier_Docker_Depuis_Ubuntu_WSL2/02_Docker_MCP_Creation des fichiers.md`, `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
 
+### [2026-06-13 03:06] | OS: Win10 | Machine: SEB-LAPTOP-AX200
+
+- Objectif de la session: cloturer proprement la grosse session du soir avant commit et push
+- Ce que j ai fait (3 lignes max):
+  1. Verification de l'etat de la stack via `backup-netdata.sh` puis `status-mcp-stack.sh`
+  2. Validation de l acces WSL au workspace NAS avec le montage `/mnt/infradata`
+  3. Mise a jour du journal de session pour garder une reprise nette demain
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): commit puis push des changements de session
+- Commande cle (optionnel): `wsl --cd /mnt/infradata/07_VSCode_Workspaces/03_Apprentissage_Sur_VSCode/mcp-netdata bash -lc './backup-netdata.sh && ./status-mcp-stack.sh'`
+- Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
+
 ### [2026-06-13 HH:MM] | OS: Win10 | Machine: SEB-LAPTOP-AX200
 
-- Objectif de la session: demarrer le conteneur MCP local et valider le cycle Docker de base
-- Ce que j ai fait (3 lignes max):
+- Objectif de la session: démarrer le conteneur MCP local et valider le cycle Docker de base
+- Ce que j'ai fait (3 lignes max):
   1. Lancement du build compose dans `SebInfra_Dev/MCP`
-  2. Demarrage du service MCP en arriere-plan
-  3. Verification de l etat conteneur + verification logs applicatifs
+  2. Démarrage du service MCP en arrière-plan
+  3. Vérification de l'état du conteneur + vérification des logs applicatifs
 - Resultat: OK / Partiel / Echec
 - Blocage (si oui): ____
-- Prochaine action (1 seule): verifier la connexion Claude Desktop -> MCP et lancer un test outil
+- Prochaine action (1 seule): vérifier la connexion Claude Desktop -> MCP et lancer un test outil
 - Commande cle (optionnel): `docker compose up -d`
 - Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
 

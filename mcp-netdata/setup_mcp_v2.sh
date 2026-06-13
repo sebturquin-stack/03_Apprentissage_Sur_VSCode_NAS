@@ -1,11 +1,9 @@
 ﻿#!/usr/bin/env bash
 set -euo pipefail
 
-CONTAINER_NAME="${CONTAINER_NAME:-01_Node-20_MCP}"
-SERVICE_NAME="${SERVICE_NAME:-mcp-netdata-watchdog}"
-WATCHDOG_SCRIPT="/usr/local/bin/${SERVICE_NAME}.sh"
-SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
-TIMER_FILE="/etc/systemd/system/${SERVICE_NAME}.timer"
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-${SCRIPT_DIR}}"
+START_SCRIPT="${START_SCRIPT:-${PROJECT_DIR}/start-netdata-mcp.sh}"
 ALIAS_NAME="${ALIAS_NAME:-mcp-restart}"
 STATUS_ALIAS_NAME="${STATUS_ALIAS_NAME:-mcp-status}"
 LOGS_ALIAS_NAME="${LOGS_ALIAS_NAME:-mcp-logs}"
@@ -19,7 +17,7 @@ STOP_ALIAS_NAME="${STOP_ALIAS_NAME:-mcp-stop}"
 ALIAS_FILE="${HOME}/.bashrc"
 ALIAS_BLOCK_START="# >>> mcp-netdata aliases >>>"
 ALIAS_BLOCK_END="# <<< mcp-netdata aliases <<<"
-JOURNAL_FILE="${JOURNAL_FILE:-/run/user/1000/gvfs/smb-share:server=sebinfranas.local,share=infradata/07_VSCode_Workspaces/03_Apprentissage_Sur_VSCode/05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md}"
+JOURNAL_FILE="${JOURNAL_FILE:-}"
 
 log() {
   printf '[setup_mcp] %s\n' "$*"
@@ -32,13 +30,27 @@ need_cmd() {
   fi
 }
 
-need_cmd docker
-need_cmd sudo
-need_cmd systemctl
-need_cmd tee
-need_cmd awk
-need_cmd mktemp
-need_cmd mv
+validate_paths() {
+  if [[ "${PROJECT_DIR}" == *\\* || "${START_SCRIPT}" == *\\* ]]; then
+    printf '[setup_mcp] Windows/UNC style paths are not supported in this script. Use Linux/WSL paths (e.g. /mnt/c/...).\n' >&2
+    exit 1
+  fi
+
+  if [[ ! -d "${PROJECT_DIR}" ]]; then
+    printf '[setup_mcp] project directory not found: %s\n' "${PROJECT_DIR}" >&2
+    exit 1
+  fi
+
+  if [[ ! -f "${START_SCRIPT}" ]]; then
+    printf '[setup_mcp] start script not found: %s\n' "${START_SCRIPT}" >&2
+    exit 1
+  fi
+
+  if [[ ! -r "${START_SCRIPT}" ]]; then
+    printf '[setup_mcp] start script not readable: %s\n' "${START_SCRIPT}" >&2
+    exit 1
+  fi
+}
 
 rewrite_alias_block() {
   touch "${ALIAS_FILE}"
@@ -61,18 +73,23 @@ rewrite_alias_block() {
 
   {
     printf '\n%s\n' "${ALIAS_BLOCK_START}"
-    printf "mcp_netdata_status() { echo \"=== docker inspect (%s) ===\"; docker inspect %s; echo; echo \"=== watchdog service (%s.service) ===\"; sudo systemctl status %s.service --no-pager; echo; echo \"=== watchdog timer (%s.timer) ===\"; sudo systemctl status %s.timer --no-pager; }\n" "${CONTAINER_NAME}" "${CONTAINER_NAME}" "${SERVICE_NAME}" "${SERVICE_NAME}" "${SERVICE_NAME}" "${SERVICE_NAME}"
-    printf "mcp_netdata_logs() { sudo journalctl -u %s.service -u %s.timer --no-pager \"\$@\"; }\n" "${SERVICE_NAME}" "${SERVICE_NAME}"
-    printf "mcp_netdata_diag() { set -o pipefail; local fail=0; echo '=== DIAG MCP NETDATA EXPRESS ==='; echo '[1/4] Montage CIFS /mnt/infradata'; if mountpoint /mnt/infradata >/dev/null 2>&1; then echo 'OK - /mnt/infradata monte'; else echo 'KO - /mnt/infradata non monte'; fail=1; fi; echo '[2/4] Conteneur %s'; if docker ps --format '{{.Names}}' | grep -qx '%s'; then echo 'OK - conteneur en cours'; else echo 'KO - conteneur arrete/absent'; fail=1; fi; echo '[3/4] Presence du script MCP dans le bind mount'; if docker exec %s test -f /app/netdata-mcp.js; then echo 'OK - /app/netdata-mcp.js present'; else echo 'KO - /app/netdata-mcp.js absent'; fail=1; fi; echo '[4/4] Smoke test runtime MCP (3s max)'; timeout 3s docker exec -i %s node /app/netdata-mcp.js </dev/null >/tmp/mcp_diag_out.log 2>/tmp/mcp_diag_err.log; local ec=\$?; if grep -q \"Cannot find module '/app/netdata-mcp.js'\" /tmp/mcp_diag_err.log; then echo 'KO - module introuvable dans le conteneur'; fail=1; elif [[ \$ec -eq 0 || \$ec -eq 124 ]]; then echo \"OK - runtime MCP demarre (exit=\$ec)\"; else echo \"KO - runtime MCP en erreur (exit=\$ec)\"; tail -n 20 /tmp/mcp_diag_err.log; fail=1; fi; if [[ \$fail -eq 0 ]]; then echo 'RESULTAT GLOBAL: OK'; else echo 'RESULTAT GLOBAL: KO'; fi; return \$fail; }\n" "${CONTAINER_NAME}" "${CONTAINER_NAME}" "${CONTAINER_NAME}" "${CONTAINER_NAME}"
-    printf "mcp_netdata_journal_last() { local journal=\"%s\"; if [[ ! -f \"\$journal\" ]]; then echo \"Journal introuvable: \$journal\"; return 1; fi; awk '/^### \\[/{prev=last; last=\"\"; printing=1} printing{last=last \$0 ORS} END{if (prev != \"\") printf \"%s\", prev; if (last != \"\") printf \"%s\", last}' \"\$journal\"; }\n" "${JOURNAL_FILE}"
-    printf "mcp_netdata_journal_new() { local journal=\"%s\"; local now os_name machine; now=\"\$(date '+%%Y-%%m-%%d %%H:%%M')\"; os_name=\"\$(uname -s)\"; machine=\"\$(hostname -s)\"; { echo; echo \"### [\${now}] | OS: \${os_name} | Machine: \${machine}\"; echo \"- Objectif de la session: ____\"; echo \"- Ce que j ai fait (3 lignes max):\"; echo \"  1. ____\"; echo \"  2. ____\"; echo \"  3. ____\"; echo \"- Resultat: OK / Partiel / Echec\"; echo \"- Blocage (si oui): ____\"; echo \"- Prochaine action (1 seule): ____\"; echo \"- Commande cle (optionnel): \\\`____\\\`\"; echo \"- Fichier(s) touches (optionnel): ____\"; } >> \"\$journal\"; echo \"Entree ajoutee dans \$journal\"; }\n" "${JOURNAL_FILE}"
-    printf "mcp_netdata_session_start() { echo 'Regle Ultra Simple: lire les 2 dernieres entrees puis ajouter 1 entree en fin de session.'; echo; mcp_netdata_journal_last; echo; echo 'Commande pour preparer une nouvelle entree: mcp-jnew'; }\n"
-    printf "alias %s='docker restart %s && sudo systemctl start %s.service'\n" "${ALIAS_NAME}" "${CONTAINER_NAME}" "${SERVICE_NAME}"
-    printf "alias %s='docker start %s && sudo systemctl start %s.service'\n" "${START_ALIAS_NAME}" "${CONTAINER_NAME}" "${SERVICE_NAME}"
-    printf "alias %s='docker stop %s && sudo systemctl stop %s.service'\n" "${STOP_ALIAS_NAME}" "${CONTAINER_NAME}" "${SERVICE_NAME}"
+    printf "mcp_netdata_script='%s'\n" "${START_SCRIPT}"
+    printf "mcp_netdata_status() { bash \"\$mcp_netdata_script\" status; }\n"
+    printf "mcp_netdata_logs() { bash \"\$mcp_netdata_script\" logs; }\n"
+    printf "mcp_netdata_logs_follow() { bash \"\$mcp_netdata_script\" logs; }\n"
+    printf "mcp_netdata_start() { bash \"\$mcp_netdata_script\" up; }\n"
+    printf "mcp_netdata_stop() { bash \"\$mcp_netdata_script\" down; }\n"
+    printf "mcp_netdata_restart() { bash \"\$mcp_netdata_script\" down; bash \"\$mcp_netdata_script\" up; }\n"
+    printf "mcp_netdata_diag() { local fail=0; echo '=== DIAG MCP NETDATA (Compose) ==='; echo '[1/3] Compose status'; if bash \"\$mcp_netdata_script\" status; then echo 'OK - status'; else echo 'KO - status'; fail=1; fi; echo '[2/3] Runtime healthcheck'; if bash \"\$mcp_netdata_script\" health; then echo 'OK - healthcheck'; else echo 'KO - healthcheck'; fail=1; fi; echo '[3/3] Container logs'; if bash \"\$mcp_netdata_script\" logs; then echo 'OK - logs'; else echo 'KO - logs'; fail=1; fi; if [[ \$fail -eq 0 ]]; then echo 'RESULTAT GLOBAL: OK'; else echo 'RESULTAT GLOBAL: KO'; fi; return \$fail; }\n"
+    printf "mcp_netdata_journal_last() { local journal=\"\${JOURNAL_FILE:-}\"; if [[ -z \"\$journal\" ]]; then echo 'JOURNAL_FILE is not set'; return 1; fi; if [[ ! -f \"\$journal\" ]]; then echo \"Journal introuvable: \$journal\"; return 1; fi; awk '/^### \\[/{prev=last; last=\"\"; printing=1} printing{last=last \$0 ORS} END{if (prev != \"\") printf \"%s\", prev; if (last != \"\") printf \"%s\", last}' \"\$journal\"; }\n"
+    printf "mcp_netdata_journal_new() { local journal=\"\${JOURNAL_FILE:-}\"; local now os_name machine; if [[ -z \"\$journal\" ]]; then echo 'JOURNAL_FILE is not set'; return 1; fi; now=\"\$(date '+%%Y-%%m-%%d %%H:%%M')\"; os_name=\"\$(uname -s)\"; machine=\"\$(hostname -s)\"; { echo; echo \"### [\${now}] | OS: \${os_name} | Machine: \${machine}\"; echo \"- Objectif de la session: ____\"; echo \"- Ce que j ai fait (3 lignes max):\"; echo \"  1. ____\"; echo \"  2. ____\"; echo \"  3. ____\"; echo \"- Resultat: OK / Partiel / Echec\"; echo \"- Blocage (si oui): ____\"; echo \"- Prochaine action (1 seule): ____\"; echo \"- Commande cle (optionnel): \\\`____\\\`\"; echo \"- Fichier(s) touches (optionnel): ____\"; } >> \"\$journal\"; echo \"Entree ajoutee dans \$journal\"; }\n"
+    printf "mcp_netdata_session_start() { echo 'Regle Ultra Simple: lire les 2 dernieres entrees puis ajouter 1 entree en fin de session.'; echo; mcp_netdata_journal_last || true; echo; echo 'Commande pour preparer une nouvelle entree: mcp-jnew'; }\n"
+    printf "alias %s='mcp_netdata_restart'\n" "${ALIAS_NAME}"
+    printf "alias %s='mcp_netdata_start'\n" "${START_ALIAS_NAME}"
+    printf "alias %s='mcp_netdata_stop'\n" "${STOP_ALIAS_NAME}"
     printf "alias %s='mcp_netdata_status'\n" "${STATUS_ALIAS_NAME}"
-    printf "alias %s='mcp_netdata_logs -n 200'\n" "${LOGS_ALIAS_NAME}"
-    printf "alias %s='mcp_netdata_logs -f -n 200'\n" "${LOGS_FOLLOW_ALIAS_NAME}"
+    printf "alias %s='mcp_netdata_logs'\n" "${LOGS_ALIAS_NAME}"
+    printf "alias %s='mcp_netdata_logs_follow'\n" "${LOGS_FOLLOW_ALIAS_NAME}"
     printf "alias %s='mcp_netdata_diag'\n" "${DIAG_ALIAS_NAME}"
     printf "alias %s='mcp_netdata_journal_last'\n" "${JOURNAL_LAST_ALIAS_NAME}"
     printf "alias %s='mcp_netdata_journal_new'\n" "${JOURNAL_NEW_ALIAS_NAME}"
@@ -81,72 +98,19 @@ rewrite_alias_block() {
   } >>"${ALIAS_FILE}"
 }
 
-log "Installing watchdog script: ${WATCHDOG_SCRIPT}"
-sudo tee "${WATCHDOG_SCRIPT}" >/dev/null <<EOF
-#!/usr/bin/env bash
-set -euo pipefail
-
-CONTAINER_NAME="\${1:-${CONTAINER_NAME}}"
-
-if ! command -v docker >/dev/null 2>&1; then
-  logger -t ${SERVICE_NAME} "docker not found"
-  exit 0
-fi
-
-if ! docker inspect "\${CONTAINER_NAME}" >/dev/null 2>&1; then
-  logger -t ${SERVICE_NAME} "container \${CONTAINER_NAME} not found"
-  exit 0
-fi
-
-running="\$(docker inspect -f '{{.State.Running}}' "\${CONTAINER_NAME}" 2>/dev/null || echo false)"
-if [[ "\${running}" != "true" ]]; then
-  logger -t ${SERVICE_NAME} "container \${CONTAINER_NAME} is stopped, starting"
-  docker start "\${CONTAINER_NAME}" >/dev/null || logger -t ${SERVICE_NAME} "failed to start \${CONTAINER_NAME}"
-fi
-EOF
-sudo chmod 755 "${WATCHDOG_SCRIPT}"
-
-log "Installing systemd service: ${SERVICE_FILE}"
-sudo tee "${SERVICE_FILE}" >/dev/null <<EOF
-[Unit]
-Description=MCP Netdata Docker Watchdog
-After=docker.service network-online.target
-Wants=docker.service
-
-[Service]
-Type=oneshot
-ExecStart=${WATCHDOG_SCRIPT} ${CONTAINER_NAME}
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-log "Installing systemd timer: ${TIMER_FILE}"
-sudo tee "${TIMER_FILE}" >/dev/null <<EOF
-[Unit]
-Description=Run MCP Netdata Watchdog every minute
-
-[Timer]
-OnBootSec=45s
-OnUnitActiveSec=60s
-AccuracySec=10s
-Persistent=true
-Unit=${SERVICE_NAME}.service
-
-[Install]
-WantedBy=timers.target
-EOF
-
-log "Reloading systemd and enabling timer"
-sudo systemctl daemon-reload
-sudo systemctl enable --now "${SERVICE_NAME}.timer"
-sudo systemctl start "${SERVICE_NAME}.service"
+need_cmd bash
+need_cmd docker
+need_cmd awk
+need_cmd mktemp
+need_cmd mv
+validate_paths
 
 rewrite_alias_block
 
 log "Done. Run: source ${ALIAS_FILE}"
-log "Check timer: sudo systemctl status ${SERVICE_NAME}.timer --no-pager"
-log "Quick restart: ${ALIAS_NAME}"
+log "Project directory: ${PROJECT_DIR}"
+log "Start script: ${START_SCRIPT}"
+log "Quick restart alias: ${ALIAS_NAME}"
 log "Start alias: ${START_ALIAS_NAME}"
 log "Stop alias: ${STOP_ALIAS_NAME}"
 log "Status alias: ${STATUS_ALIAS_NAME}"

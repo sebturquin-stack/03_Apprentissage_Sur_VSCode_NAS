@@ -2,10 +2,31 @@
     "name": "netdata-mcp",
     "version": "1.0.0",
     "description": "MCP server for querying a local Netdata Agent",
+    "author": "Sebastien",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sebturquin-stack/03_Apprentissage_Sur_VSCode_NAS.git"
+    },
+    "homepage": "https://github.com/sebturquin-stack/03_Apprentissage_Sur_VSCode_NAS/tree/main/mcp-netdata",
+    "bugs": {
+        "url": "https://github.com/sebturquin-stack/03_Apprentissage_Sur_VSCode_NAS/issues"
+    },
+    "engines": {
+        "node": ">=20.0.0",
+        "npm": ">=10.0.0"
+    },
     "type": "module",
     "main": "netdata-mcp.js",
     "scripts": {
-        "start": "node netdata-mcp.js"
+        "start": "node netdata-mcp.js",
+        "dev": "node --watch netdata-mcp.js",
+        "test": "node --test",
+        "smoke": "bash ./smoke-test.sh",
+        "status": "bash ./status-mcp-stack.sh",
+        "restart": "bash ./restart-mcp-stack.sh",
+        "backup": "bash ./backup-netdata.sh",
+        "format": "npx prettier --write .",
+        "lint": "npx eslint ."
     },
     "keywords": [
         "mcp",

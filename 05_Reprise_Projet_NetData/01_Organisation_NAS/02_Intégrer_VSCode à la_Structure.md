@@ -1,14 +1,17 @@
 ﻿## Synthese operationnelle
 
 Objectif:
+
 - Integrer les workspaces VSCode dans l architecture NAS existante, sans recommencer les projets.
 
 Decision retenue:
+
 - Garder la structure actuelle InfraData et y integrer VSCode.
 - Emplacement cible recommande: InfraData/07_VSCode_Workspaces.
 - Migration progressive dossier par dossier, dans l ordre actuel.
 
 Ce que cette decision signifie:
+
 1. On ne recree pas les projets.
 2. On copie/deplace les dossiers existants vers le NAS.
 3. On ouvre ensuite les workspaces directement depuis le NAS.
@@ -16,16 +19,19 @@ Ce que cette decision signifie:
 ## Plan d execution (simple et durable)
 
 Phase 1 - Preparation
+
 1. Creer le dossier racine cible: 07_VSCode_Workspaces sur InfraData.
 2. Monter le partage NAS dans Windows (lettre de lecteur selon ton choix).
 3. Verifier les droits lecture/ecriture sur le dossier cible.
 
 Phase 2 - Migration pilote
+
 1. Migrer un seul dossier test en premier.
 2. Ouvrir le .code-workspace depuis le NAS.
 3. Verifier extensions, liens relatifs, et ouverture des fichiers.
 
 Phase 3 - Generalisation
+
 1. Migrer les dossiers restants dans le meme ordre.
 2. Faire une verification rapide apres chaque dossier.
 3. Mettre a jour la documentation de suivi (journal et checklist).
@@ -59,6 +65,7 @@ Parade: journaliser chaque etape et migrer par petits blocs.
 ## Prochaine action concrete
 
 Ce soir:
+
 1. Creer/valider InfraData/07_VSCode_Workspaces.
 2. Migrer le premier dossier (pilote).
 3. Ouvrir dans VSCode depuis le NAS et valider la checklist.
@@ -89,19 +96,13 @@ Dedans, des sous-dossiers comme :
 
 avec :
 
-.vscode
-
-mcp-netdata
-
-01_VSCode_Environnement
-
-03_Installer_Mon_1er_MCP
-
-04_Atelier II Documentation — SébDocs
-
-des fichiers .code-workspace
-
-des .md de doc (comme ceux que tu m’as collés)
+- .vscode
+- mcp-netdata
+- 01_VSCode_Environnement
+- 03_Installer_Mon_1er_MCP
+- 04_Atelier II Documentation — SébDocs
+- des fichiers .code-workspace
+- des .md de doc (comme ceux que tu m’as collés)
 
 En clair :
 👉 tu as déjà toute une arborescence propre, structurée, avec doc + projets + workspaces.

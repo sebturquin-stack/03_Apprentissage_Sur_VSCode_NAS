@@ -9,6 +9,37 @@
 
 services:
 
+  netdata:
+    image: netdata/netdata
+    container_name: 01_Netdata
+
+    # User intentionally not forced here: Netdata requires elevated access
+    # to collect host metrics from mounted proc/sys filesystems.
+
+    ports:
+      - "19999:19999"
+
+    volumes:
+      - netdata_data:/var/lib/netdata
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:19999/api/v1/info >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 25s
+
+    restart: unless-stopped
+
+    networks:
+      - mcp-net
+
   netdata-mcp:
     container_name: 01_Node-20_MCP
 
@@ -27,8 +58,14 @@ services:
     # Sécurité & Permissions
     # -----------------------------
     user: "1000:1000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
     security_opt:
       - apparmor:docker-mcp
+      - no-new-privileges:true
     stdin_open: false
     tty: false
 
@@ -36,7 +73,12 @@ services:
     # Variables d’environnement
     # -----------------------------
     environment:
-      NETDATA_BASE_URL: ${NETDATA_BASE_URL:-http://172.17.0.1:19999}
+      NETDATA_BASE_URL: ${NETDATA_BASE_URL:-http://netdata:19999}
+      NETDATA_TIMEOUT_MS: ${NETDATA_TIMEOUT_MS:-5000}
+
+    depends_on:
+      netdata:
+        condition: service_healthy
 
     # -----------------------------
     # Limites & Durcissement
@@ -75,6 +117,9 @@ services:
 networks:
   mcp-net:
     driver: bridge
+
+volumes:
+  netdata_data:
 
 
 

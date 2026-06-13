@@ -102,16 +102,18 @@ Attendus:
 ## Sujets sensibles a surveiller
 
 1. Demarrage auto MCP
-2.
+
 - Historique: une boucle de demarrage auto avait ete desactivee pour proteger la stabilite.
--
+
 - Regle: ne pas reactiver un auto-start sans validation prealable du flux complet.
 
-1. Configuration JSON historique
+1.2 Configuration JSON historique
+
 - Un JSON critique existe dans le contexte ancien (QG reseau).
 - Regle: toute reactivation doit etre tracee et testee avec rollback simple.
 
-1. Charge machine
+1.3 Charge machine
+
 - Eviter de recreer la dette CPU de l ancien poste.
 - Prioriser execution sur infra stable (NAS / conteneur bien calibre).
 
@@ -421,29 +423,18 @@ Tu as un passage très clair là-dessus :
 
 Et on a défini une stratégie par Atelier :
 
-Atelier I (SébCore)
-
-Chrome DevTools MCP
-
-DBHub MCP
-
-(optionnel) Netdata MCP
-
-Atelier II (Documentation)
-
-Notion MCP
-
-GitHub/DBHub selon besoin doc
-
-Atelier III (DevOps)
-
-Chrome DevTools MCP
-
-Azure MCP
-
-Playwright MCP
-
-(optionnel) Netdata MCP
+. Atelier I (SébCore)
+. Chrome DevTools MCP
+. DBHub MCP
+. (optionnel) Netdata MCP
+. Atelier II (Documentation)
+. Notion MCP
+. GitHub/DBHub selon besoin doc
+. Atelier III (DevOps)
+. Chrome DevTools MCP
+. Azure MCP
+. Playwright MCP
+. (optionnel) Netdata MCP
 
 Et pour Atelier I, tu as déjà un doc dédié :
 
@@ -454,13 +445,13 @@ On a ensuite corrigé : pas de GitHub MCP officiel → on garde Chrome DevTools 
 c) Le projet “pont Linux/Windows” et la VM
 Tu rappelles bien :
 
-on avait monté une VM Linux parce que le dual-boot était impossible,
+- On avait monté une VM Linux parce que le dual-boot était impossible,
 
-Linux devait tourner pour que Windows puisse se connecter au service (MCP / Netdata / autre),
+- Linux devait tourner pour que Windows puisse se connecter au service (MCP / Netdata / autre),
 
-ton CPU saturait, la VM tirait trop, VSCode souffrait,
+- Ton CPU saturait, la VM tirait trop, VSCode souffrait,
 
-tu as demandé à Claude de désactiver le démarrage auto d’un MCP dans un .json de QG_Réseau_2026 parce que ça bouclait à chaque ouverture de VSCode.
+- Tu as demandé à Claude de désactiver le démarrage auto d’un MCP dans un .json de QG_Réseau_2026 parce que ça bouclait à chaque ouverture de VSCode.
 
 Donc :
 

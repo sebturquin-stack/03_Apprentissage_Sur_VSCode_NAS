@@ -201,12 +201,6 @@ Je corrige précisément les lignes corrompues dans le bloc watchdog, puis je va
 
 Generating patch (28 lines) in [](file:///run/user/1000/gvfs/smb-share%3Aserver%3Dsebinfranas.local%2Cshare%3Dinfradata/07_VSCode_Workspaces/03_Apprentissage_Sur_VSCode/mcp-netdata/setup_mcp.sh)
 
-
-```
-
-```
-
-
 Ran terminal command:  cd '/run/user/1000/gvfs/smb-share:server=sebinfranas.local,share=infradata/07_VSCode_Workspaces/03_Apprentissage_Sur_VSCode/mcp-netdata' && chmod +x setup_mcp.sh && bash -n setup_mcp.sh && (grep -P '\x00' -n setup_mcp.sh >/dev/null && echo 'NUL_FOUND' || echo 'NUL_OK')
 
 Ran terminal command:  cd '/run/user/1000/gvfs/smb-share:server=sebinfranas.local,share=infradata/07_VSCode_Workspaces/03_Apprentissage_Sur_VSCode/mcp-netdata' && bash -n setup_mcp.sh && (grep -P '\x00' -n setup_mcp.sh >/dev/null && echo 'NUL_FOUND' || echo 'NUL_OK')
