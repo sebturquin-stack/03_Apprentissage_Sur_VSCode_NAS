@@ -30,13 +30,16 @@ Ne modifie pas la logique existante.
 👉 Dans Dockerfile, en commentaire tout en haut :
 
 dockerfile
+
 # Copilot : optimise ce Dockerfile pour un projet Node MCP.
 # Ajoute un cache npm, réduit la taille de l'image, garde Node 20.
 # Ne change pas la logique du projet, juste optimise les couches.
+
 Ou dans Copilot Chat :
 
 Code
 Optimise mon Dockerfile MCP :
+
 - Ajoute un cache npm
 - Réduit la taille de l’image
 - Garde Node 20
@@ -55,6 +58,7 @@ Ou dans Copilot Chat :
 
 Code
 Génère un README professionnel pour mon projet MCP :
+
 - Description du projet
 - Structure du dossier
 - Installation
@@ -99,6 +103,7 @@ avec logs, vérification du port 3000, et redémarrage automatique.
 👉 Guided link : Créer script MCP
 
 🟦 Résumé — Les 7 commandes VSCode Copilot essentielles
+
 Objectif	Prompt Copilot	Lien
 Améliorer package.json	“Améliore ce package.json…”	Optimiser package.json
 Optimiser Dockerfile	“Optimise ce Dockerfile…”	Optimiser Dockerfile MCP
@@ -108,10 +113,7 @@ Intégration Netdata	“Prépare l’intégration Netdata…”	Configurer Netda
 Sécurité npm	“Analyse les vulnérabilités npm…”	Audit sécurité MCP
 Script start	“Génère un script start MCP…”	Créer script MCP
 
-
 Sébastien, tu veux commencer par l’amélioration du package.json, ou tu préfères qu’on attaque l’optimisation du Dockerfile en premier ?
-
-
 
 analyse la capture stp, je peux lui demander dans n'importe VSCode ouvert ou bien je dois choisir entre l'un ou l'autre de ceux qui se trouve sur le capture ? Juste tu me réponds, les commandes je les ai déjà dans la réponse précédente.
 Très bonne question, Sébastien — et ta capture est très parlante.
@@ -144,6 +146,7 @@ Code
 Copilot, réalise un audit complet du projet MCP.
 Analyse les fichiers Dockerfile, docker-compose.yml, package.json, scripts .sh et la structure du dossier.
 Vérifie :
+
 - la cohérence entre Dockerfile et docker-compose (ports, volumes, dépendances)
 - la compatibilité Node.js et npm avec le Dockerfile
 - la présence et la validité des scripts de démarrage

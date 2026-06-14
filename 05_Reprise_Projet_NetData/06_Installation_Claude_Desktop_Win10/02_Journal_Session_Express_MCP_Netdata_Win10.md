@@ -6,8 +6,8 @@ But:
 
 ## Snapshot Projet (mettre a jour si besoin)
 
-- Date maj: 2026-06-13 03:06
-- Etat global (OK / A verifier / bloque): A verifier
+- Date maj: 2026-06-13 18:36
+- Etat global (OK / A verifier / bloque): OK
 - OS: Win10
 - Workspace: 03_Apprentissage_Sur_VSCode
 - Zone active: 05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10 + 05_Reprise_Projet_NetData/07_Installer_Fondations_Techniques_Windows.10
@@ -29,6 +29,18 @@ But:
 - Prochaine action (1 seule): ____
 - Commande cle (optionnel): `____`
 - Fichier(s) touches (optionnel): ____
+
+## Cloture Ultra-Courte (5 lignes)
+
+Copier-coller ce mini-bloc en fin de session si tu veux aller a l essentiel:
+
+### [YYYY-MM-DD HH:MM] | OS: Win10 | Machine: ____
+
+- Objectif: ____
+- 3 actions: 1) ____ 2) ____ 3) ____
+- Resultat: OK / Partiel / Echec
+- Blocage: aucun / ____
+- Next: ____
 
 ## Mode d'emploi express (30 sec)
 
@@ -128,18 +140,18 @@ Trace journal suggeree:
 - Commande cle (optionnel): `wsl --cd /mnt/infradata/07_VSCode_Workspaces/03_Apprentissage_Sur_VSCode/mcp-netdata bash -lc './backup-netdata.sh && ./status-mcp-stack.sh'`
 - Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
 
-### [2026-06-13 HH:MM] | OS: Win10 | Machine: SEB-LAPTOP-AX200
+### [2026-06-13 18:36] | OS: Win10 | Machine: SEB-LAPTOP-AX200
 
-- Objectif de la session: démarrer le conteneur MCP local et valider le cycle Docker de base
-- Ce que j'ai fait (3 lignes max):
-  1. Lancement du build compose dans `SebInfra_Dev/MCP`
-  2. Démarrage du service MCP en arrière-plan
-  3. Vérification de l'état du conteneur + vérification des logs applicatifs
-- Resultat: OK / Partiel / Echec
-- Blocage (si oui): ____
-- Prochaine action (1 seule): vérifier la connexion Claude Desktop -> MCP et lancer un test outil
-- Commande cle (optionnel): `docker compose up -d`
-- Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
+- Objectif de la session: consolider la stack MCP/Netdata en etat stable, scriptable et prete a la reprise
+- Ce que j ai fait (3 lignes max):
+  1. Validation de l architecture cible (Docker Compose + reseau `mcp-net` + volume persistant `netdata_data`) et des healthchecks
+  2. Verification operationnelle de la toolbox admin (`mcp-smoke`, `mcp-status`, `mcp-restart`, `mcp-backup`, `mcp-logs`) et des alias Bash globaux
+  3. Verification de stabilite via arret propre (`docker compose down`), controle d absence de residu (`docker ps`) et confirmation de la persistance des donnees
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): executer un audit final complet (CPU, RAM, I/O, reseau, resilience) puis tracer le verdict
+- Commande cle (optionnel): `docker compose down ; docker ps`
+- Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`, `mcp-netdata/`
 
 ## Regle Ultra Simple
 
