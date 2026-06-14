@@ -1,38 +1,65 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+NAS_HOST="192.168.8.220"
+NAS_SHARE="InfraData"
+NAS_USER="SebAdminNAS"
+NAS_PASSWORD="Cayenn*"
 MOUNT_POINT="/mnt/infradata"
-DRIVE_LETTER="Z:"
-RETRY_COUNT=3
-RETRY_DELAY_SECONDS=2
 
 fail() {
   echo "Erreur: $1" >&2
   exit 1
 }
 
-if ! grep -qi microsoft /proc/version 2>/dev/null; then
-  fail "ce script doit etre execute dans WSL"
+log() {
+  echo "[mount_nas] $1"
+}
+
+if [[ "${EUID}" -eq 0 ]]; then
+  SUDO=""
+else
+  SUDO="sudo -n"
 fi
 
-mkdir_ok=true
-sudo -n mkdir -p "$MOUNT_POINT" >/dev/null 2>&1 || mkdir_ok=false
+if [[ "${EUID}" -ne 0 ]]; then
+  if ! command -v sudo >/dev/null 2>&1; then
+    fail "sudo introuvable: execution non-root impossible"
+  fi
+  if ! sudo -n true >/dev/null 2>&1; then
+    fail "sudo -n indisponible: configurer sudo sans mot de passe pour ce script"
+  fi
+fi
 
+if ! command -v mount >/dev/null 2>&1; then
+  fail "commande mount introuvable"
+fi
+
+if ! command -v mountpoint >/dev/null 2>&1; then
+  fail "commande mountpoint introuvable"
+fi
+
+if ! command -v mount.cifs >/dev/null 2>&1; then
+  fail "mount.cifs introuvable: installer le paquet cifs-utils"
+fi
+
+# 1) Creation du point de montage
+${SUDO} mkdir -p "$MOUNT_POINT" || fail "impossible de creer $MOUNT_POINT"
+
+# 2) Demontage propre (idempotent)
+${SUDO} umount "$MOUNT_POINT" >/dev/null 2>&1 || true
+
+# 3) Montage CIFS natif
+MOUNT_SOURCE="//${NAS_HOST}/${NAS_SHARE}"
+MOUNT_OPTS="username=${NAS_USER},password=${NAS_PASSWORD},vers=3.0,iocharset=utf8,uid=1000,gid=1000"
+
+${SUDO} mount -t cifs "$MOUNT_SOURCE" "$MOUNT_POINT" -o "$MOUNT_OPTS" || fail "echec du montage CIFS ${MOUNT_SOURCE} vers ${MOUNT_POINT}"
+
+# 4) Verification du montage
 if mountpoint -q "$MOUNT_POINT"; then
-  sudo -n umount "$MOUNT_POINT" >/dev/null 2>&1 || mkdir_ok=false
+  log "SUCCES: ${MOUNT_SOURCE} monte sur ${MOUNT_POINT}"
+  exit 0
 fi
 
-attempt=1
-while (( attempt <= RETRY_COUNT )); do
-  if [[ "$mkdir_ok" == true ]] && sudo -n mount -t drvfs "$DRIVE_LETTER" "$MOUNT_POINT" >/dev/null 2>&1; then
-    exit 0
-  fi
-
-  if (( attempt < RETRY_COUNT )); then
-    sleep "$RETRY_DELAY_SECONDS"
-  fi
-
-  attempt=$((attempt + 1))
-done
-
-fail "echec du montage $DRIVE_LETTER vers $MOUNT_POINT apres $RETRY_COUNT tentatives"
+# 5) Message clair en cas d echec
+fail "montage non confirme sur ${MOUNT_POINT}"

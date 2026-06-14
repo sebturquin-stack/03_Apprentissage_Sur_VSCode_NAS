@@ -16,14 +16,11 @@ log_line() {
   printf '%s | %s\n' "$(timestamp)" "$1" >>"$LOG_FILE"
 }
 
-notify_windows_failure() {
-  local message="$1"
-
-  if command -v powershell.exe >/dev/null 2>&1; then
-    powershell.exe -NoProfile -Command "\
-      \$wshell = New-Object -ComObject WScript.Shell; \
-      \$wshell.Popup('$message', 8, 'MCP Boot Error', 0x10) | Out-Null\
-    " >/dev/null 2>&1 || true
+run_mount_script() {
+  if [[ "${EUID}" -eq 0 ]]; then
+    bash "$MOUNT_SCRIPT"
+  else
+    sudo -n bash "$MOUNT_SCRIPT"
   fi
 }
 
@@ -31,7 +28,9 @@ fail() {
   local message="$1"
   echo "Erreur: $message" >&2
   log_line "ECHEC | $message"
-  notify_windows_failure "$message"
+  if command -v logger >/dev/null 2>&1; then
+    logger -t mcp_boot "$message" || true
+  fi
   exit 1
 }
 
@@ -46,8 +45,17 @@ ensure_nas_available() {
     fail "Script de montage introuvable: $MOUNT_SCRIPT"
   fi
 
+  if [[ "${EUID}" -ne 0 ]]; then
+    if ! command -v sudo >/dev/null 2>&1; then
+      fail "sudo introuvable: execution non-root impossible pour le montage NAS"
+    fi
+    if ! sudo -n true >/dev/null 2>&1; then
+      fail "sudo -n indisponible: configurer sudo sans mot de passe pour ce script"
+    fi
+  fi
+
   while (( attempt <= MOUNT_RETRY_COUNT )); do
-    if sudo -n bash "$MOUNT_SCRIPT" >/dev/null 2>&1 && [[ -d "$NAS_ROOT" ]]; then
+    if run_mount_script >/dev/null 2>&1 && [[ -d "$NAS_ROOT" ]]; then
       log_line "INFO | Montage NAS reussi a la tentative $attempt"
       return 0
     fi
@@ -75,6 +83,10 @@ fi
 
 if ! command -v docker >/dev/null 2>&1; then
   fail "docker introuvable dans ce shell"
+fi
+
+if ! docker compose version >/dev/null 2>&1; then
+  fail "plugin docker compose indisponible"
 fi
 
 compose_output=""
