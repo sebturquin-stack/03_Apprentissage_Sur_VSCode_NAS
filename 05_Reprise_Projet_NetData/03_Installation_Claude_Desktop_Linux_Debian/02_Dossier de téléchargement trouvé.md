@@ -562,10 +562,6 @@ Tu choisis :
 
 Sébastien, tu me dis laquelle des deux voies tu veux prendre, et je t’emmène pas à pas, sans jamais te laisser dans le flou.
 
-
-
-
-
 README.md
 
 Markdown

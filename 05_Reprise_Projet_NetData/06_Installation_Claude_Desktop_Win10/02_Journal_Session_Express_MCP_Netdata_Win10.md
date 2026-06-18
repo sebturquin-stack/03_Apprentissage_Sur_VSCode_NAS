@@ -153,6 +153,19 @@ Trace journal suggeree:
 - Commande cle (optionnel): `docker compose down ; docker ps`
 - Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`, `mcp-netdata/`
 
+### [2026-06-18 22:00] | OS: Win10 | Machine: SEB-LAPTOP-AX200
+
+- Objectif de la session: garder le fil du chantier Win10 meme avec une session tres legere
+- Ce que j ai fait (3 lignes max):
+  1. Relecture rapide du journal Win10 et de la procedure de suivi
+  2. Verification du dernier etat documente pour reprendre sans ambiguite
+  3. Ajout de l entree de cloture pour marquer la reprise minimale du soir
+- Resultat: Partiel
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): reprendre l audit final complet de la stack MCP/Netdata puis noter le verdict
+- Commande cle (optionnel): `docker compose ps`
+- Fichier(s) touches (optionnel): `06_Infra_Stable_VM_Linux_&_Win10/`, `06_Infra_Stable_VM_Linux_&_Win10/01_Installer_VM_Mint_basé Ubuntu-22.04.md/03_Installation_VM_Mint-infra-Server.md`, `06_Infra_Stable_VM_Linux_&_Win10/02_Docker_Engine_sur_Linux_Mint/01_Installation_Docker_Engine.md`, `06_Infra_Stable_VM_Linux_&_Win10/01_Installer_VM_Mint_basé Ubuntu-22.04.md/04_Installation_Terminal_PuTTY.md`, `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
+
 ## Regle Ultra Simple
 
 - Toujours finir une session par 1 entree.

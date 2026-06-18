@@ -198,3 +198,16 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Prochaine action (1 seule): demain soir reprendre la revue doc Linux fichier par fichier en conservant le format synthese + historique
 - Commande cle (optionnel): `mcp-jstart`
 - Fichier(s) touches (optionnel): `mcp-netdata/setup_mcp.sh`, `05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md`
+
+### [2026-06-19 00:10] | OS: Linux | Machine: mint-infra-server
+
+- Objectif de la session: stabiliser Netdata apres crash-loop et figer un etat d'exploitation fiable
+- Ce que j ai fait (3 lignes max):
+  1. Bascule des volumes critiques vers disque local VM (`/var/lib/netdata-host-config`, `/var/lib/netdata-local/lib`, `/var/lib/netdata-local/cache`)
+  2. Redemarrage propre `docker compose down && docker compose up -d` puis verification des mounts effectifs via `docker inspect`
+  3. Verification post-boot: conteneur `healthy`, API locale OK, et documentation README mise a jour (etat stable + procedures)
+- Resultat: OK
+- Blocage (si oui): aucun blocage critique; bruit `apps.plugin` en `Permission denied` conserve volontairement pour garder un maximum de metriques
+- Prochaine action (1 seule): conserver la config en l etat et lancer uniquement le check anti-regression apres reboot VM
+- Commande cle (optionnel): `sudo docker logs netdata --tail 200 | grep -E "Failed to initialize SQLite|unable to open database file|fatal" || echo OK no fatal pattern`
+- Fichier(s) touches (optionnel): `05_Infra/netdata/docker-compose.yml`, `05_Infra/netdata/README.md`, `05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md`
