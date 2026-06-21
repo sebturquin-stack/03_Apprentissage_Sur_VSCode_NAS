@@ -13,7 +13,7 @@ sudo apt install ca-certificates curl gnupg lsb-release -y
 🟩 4) Ajouter la clé GPG officielle Docker
 bash
 sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL <https://download.docker.com/linux/ubuntu/gpg> | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 🟦 5) Ajouter le dépôt Docker officiel
 bash
@@ -43,28 +43,25 @@ docker run hello-world
 Si tout est OK → Docker Engine est installé proprement.
 
 🟩 Résumé clair
-Étape	Action
-1	Suppression anciennes versions
-2	Mise à jour système
-3	Dépendances
-4	Clé GPG Docker
-5	Dépôt Docker officiel
-6	Installation Docker Engine
-7	Vérification
-8	Ajout au groupe docker
-9	Test
 
+Étape	Action
+
+- 1.Suppression anciennes versions
+- 2.Mise à jour système
+- 3.Dépendances
+- 4.Clé GPG Docker
+- 5.Dépôt Docker officiel
+- 6.Installation Docker Engine
+- 7.Vérification
+- 8.Ajout au groupe docker
+- 9.Test
 
 🟦 Tu veux enchaîner ensuite sur :
 Installer Docker Compose
 
-Monter le NAS dans /mnt/infradata
-
-Déployer Netdata
-
-Tu me dis ce que tu veux faire juste après l’installation, et on continue.
-
-
+- Monter le NAS dans /mnt/infradata
+- Déployer Netdata
+- Tu me dis ce que tu veux faire juste après l’installation, et on continue.
 
 Je me suis arrêté a l'étape "7) Vérifier que Docker fonctionne" car il faut que tu analyse la sortie car je vois des MAJ qui ne sont pas autorisées, donc il faut d'abord régler ça avant de pouvoir aller plus loin, en meme temps je te donne une capture que tu analyse a la perfection stp car la commande n'a pas fonctionné du tout. Donc je veux que tu analyse la capture a la perfection stp.
 Using username "sebastien".
@@ -78,20 +75,20 @@ Construction de l'arbre des dépendances... Fait
 Lecture des informations d'état... Fait
 E: Impossible de trouver le paquet docker-engine
 sebastien@mint-infra-server:~$ sudo apt update && sudo apt upgrade -y
-Atteint :1 http://archive.ubuntu.com/ubuntu jammy InRelease
-Réception de :2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
-Réception de :3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
-Réception de :4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
-Ign :5 http://packages.linuxmint.com virginia InRelease
-Atteint :6 http://packages.linuxmint.com virginia Release
-Réception de :7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 DEP-11 Metadata [117 kB]
-Réception de :8 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 DEP-11 Metadata [360 kB]
-Réception de :9 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [30,7 kB]
-Réception de :10 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 DEP-11 Metadata [940 B]
-Réception de :11 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 DEP-11 Metadata [5 788 B]
-Réception de :12 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 DEP-11 Metadata [12,4 kB]
-Réception de :14 http://security.ubuntu.com/ubuntu jammy-security/main amd64 DEP-11 Metadata [74,0 kB]
-Réception de :15 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 DEP-11 Metadata [127 kB]
+Atteint :1 <http://archive.ubuntu.com/ubuntu> jammy InRelease
+Réception de :2 <http://security.ubuntu.com/ubuntu> jammy-security InRelease [129 kB]
+Réception de :3 <http://archive.ubuntu.com/ubuntu> jammy-updates InRelease [128 kB]
+Réception de :4 <http://archive.ubuntu.com/ubuntu> jammy-backports InRelease [127 kB]
+Ign :5 <http://packages.linuxmint.com> virginia InRelease
+Atteint :6 <http://packages.linuxmint.com> virginia Release
+Réception de :7 <http://archive.ubuntu.com/ubuntu> jammy-updates/main amd64 DEP-11 Metadata [117 kB]
+Réception de :8 <http://archive.ubuntu.com/ubuntu> jammy-updates/universe amd64 DEP-11 Metadata [360 kB]
+Réception de :9 <http://archive.ubuntu.com/ubuntu> jammy-updates/universe amd64 c-n-f Metadata [30,7 kB]
+Réception de :10 <http://archive.ubuntu.com/ubuntu> jammy-updates/multiverse amd64 DEP-11 Metadata [940 B]
+Réception de :11 <http://archive.ubuntu.com/ubuntu> jammy-backports/main amd64 DEP-11 Metadata [5 788 B]
+Réception de :12 <http://archive.ubuntu.com/ubuntu> jammy-backports/universe amd64 DEP-11 Metadata [12,4 kB]
+Réception de :14 <http://security.ubuntu.com/ubuntu> jammy-security/main amd64 DEP-11 Metadata [74,0 kB]
+Réception de :15 <http://security.ubuntu.com/ubuntu> jammy-security/universe amd64 DEP-11 Metadata [127 kB]
 1 112 ko réceptionnés en 1s (805 ko/s)
 Lecture des listes de paquets... Fait
 Construction de l'arbre des dépendances... Fait
@@ -106,9 +103,9 @@ Les paquets suivants seront mis à jour :
 3 mis à jour, 0 nouvellement installés, 0 à enlever et 0 non mis à jour.
 Il est nécessaire de prendre 252 ko dans les archives.
 Après cette opération, 51,2 ko d'espace disque seront libérés.
-Réception de :1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 ca-certificates all 20260601~22.04.1 [141 kB]
-Réception de :2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgraphite2-3 amd64 1.3.14-1ubuntu0.1 [71,6 kB]
-Réception de :3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 librabbitmq4 amd64 0.10.0-1ubuntu2.1 [39,5 kB]
+Réception de :1 <http://archive.ubuntu.com/ubuntu> jammy-updates/main amd64 ca-certificates all 20260601~22.04.1 [141 kB]
+Réception de :2 <http://archive.ubuntu.com/ubuntu> jammy-updates/main amd64 libgraphite2-3 amd64 1.3.14-1ubuntu0.1 [71,6 kB]
+Réception de :3 <http://archive.ubuntu.com/ubuntu> jammy-updates/main amd64 librabbitmq4 amd64 0.10.0-1ubuntu2.1 [39,5 kB]
 252 ko réceptionnés en 0s (3 283 ko/s)
 Préconfiguration des paquets...
 (Lecture de la base de données... 571227 fichiers et répertoires déjà installés.)
@@ -145,26 +142,26 @@ curl est déjà la version la plus récente (7.81.0-1ubuntu1.24).
 gnupg est déjà la version la plus récente (2.2.27-3ubuntu2.5).
 0 mis à jour, 0 nouvellement installés, 0 à enlever et 0 non mis à jour.
 sebastien@mint-infra-server:~$ sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL <https://download.docker.com/linux/ubuntu/gpg> | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 sebastien@mint-infra-server:~$ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-  https://download.docker.com/linux/ubuntu \
+  <https://download.docker.com/linux/ubuntu> \
   $(lsb_release -cs) stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sebastien@mint-infra-server:~$ sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-Atteint :1 http://security.ubuntu.com/ubuntu jammy-security InRelease
-Atteint :2 http://archive.ubuntu.com/ubuntu jammy InRelease
-Atteint :3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
-Atteint :4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
-Ign :5 https://download.docker.com/linux/ubuntu virginia InRelease
-Ign :6 http://packages.linuxmint.com virginia InRelease
-Atteint :7 http://packages.linuxmint.com virginia Release
-Err :8 https://download.docker.com/linux/ubuntu virginia Release
+Atteint :1 <http://security.ubuntu.com/ubuntu> jammy-security InRelease
+Atteint :2 <http://archive.ubuntu.com/ubuntu> jammy InRelease
+Atteint :3 <http://archive.ubuntu.com/ubuntu> jammy-updates InRelease
+Atteint :4 <http://archive.ubuntu.com/ubuntu> jammy-backports InRelease
+Ign :5 <https://download.docker.com/linux/ubuntu> virginia InRelease
+Ign :6 <http://packages.linuxmint.com> virginia InRelease
+Atteint :7 <http://packages.linuxmint.com> virginia Release
+Err :8 <https://download.docker.com/linux/ubuntu> virginia Release
   404  Not Found [IP : 99.86.109.124 443]
 Lecture des listes de paquets... Fait
-E: Le dépôt https://download.docker.com/linux/ubuntu virginia Release n'a pas de fichier Release.
+E: Le dépôt <https://download.docker.com/linux/ubuntu> virginia Release n'a pas de fichier Release.
 N: Les mises à jour depuis un tel dépôt ne peuvent s'effectuer de manière sécurisée, et sont donc désactivées par défaut.
 N: Voir les pages de manuel d'apt-secure(8) pour la création des dépôts et les détails de configuration d'un utilisateur.
 Lecture des listes de paquets... Fait
@@ -224,7 +221,7 @@ Résultat : aucune erreur.
 C’est ici que le problème apparaît :
 
 Code
-Err :8 https://download.docker.com/linux/ubuntu virginia Release
+Err :8 <https://download.docker.com/linux/ubuntu> virginia Release
 404  Not Found
 ➡️ Cause : Mint 22 (nom de code Virginia) n’est pas reconnu par Docker, car Docker ne publie pas de dépôt spécifique pour Mint.
 Mint 22 est basé sur Ubuntu 22.04 (Jammy), donc il faut forcer le dépôt Ubuntu Jammy.
@@ -239,7 +236,7 @@ sudo rm /etc/apt/sources.list.d/docker.list
 bash
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-  https://download.docker.com/linux/ubuntu \
+  <https://download.docker.com/linux/ubuntu> \
   jammy stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 3️⃣ Recharge les dépôts :
@@ -262,6 +259,7 @@ Et pour tester :
 bash
 docker run hello-world
 🟦 En résumé clair
+
 Étape	Action	État
 Nettoyage ancien Docker	✅ OK
 Mise à jour système	✅ OK
@@ -270,7 +268,6 @@ Clé GPG Docker	✅ OK
 Dépôt Docker	❌ Erreur (Virginia non reconnu)
 Correction dépôt → Jammy	🟩 À faire
 Installation Docker	🟩 À refaire après correction
-
 
 Tu es à une seule commande de corriger le dépôt et d’avoir Docker fonctionnel.
 Dès que tu as exécuté les 4 commandes de correction, on vérifiera ensemble le statut du service Docker.
@@ -409,12 +406,12 @@ sudo rm /etc/apt/sources.list.d/docker.list
 puis :
 
 bash
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] <https://download.docker.com/linux/ubuntu> jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ✅ Résultat : ton dépôt est maintenant Ubuntu Jammy, reconnu par Docker.
 La ligne :
 
 Code
-Réception de :3 https://download.docker.com/linux/ubuntu jammy InRelease [48,5 kB]
+Réception de :3 <https://download.docker.com/linux/ubuntu> jammy InRelease [48,5 kB]
 confirme que le dépôt est bien fonctionnel.
 
 🟦 2️⃣ Installation de Docker Engine
@@ -424,11 +421,9 @@ bash
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 Et la sortie montre :
 
-Installation complète de tous les paquets Docker (CE, CLI, Buildx, Compose, Containerd, Rootless Extras).
-
-Création des symlinks pour docker.service et docker.socket.
-
-Aucun message d’erreur.
+- Installation complète de tous les paquets Docker (CE, CLI, Buildx, Compose, Containerd, Rootless Extras).
+- Création des symlinks pour docker.service et docker.socket.
+- Aucun message d’erreur.
 
 ✅ Docker est installé proprement et activé.
 
@@ -449,13 +444,10 @@ Les messages Deleting nftables IPv4/IPv6 rules sont sans gravité : Docker ten
 🟦 4️⃣ Commande docker run hello-world
 Tu dis :
 
-la dernière commande pour le test n’a rien renvoyé
-
-C’est typique quand :
-
-le démon Docker est actif mais ton utilisateur n’a pas encore les droits du groupe docker,
-
-ou le terminal n’a pas encore rechargé la session après l’ajout au groupe.
+- la dernière commande pour le test n’a rien renvoyé
+- C’est typique quand :
+- le démon Docker est actif mais ton utilisateur n’a pas encore les droits du groupe docker,
+- ou le terminal n’a pas encore rechargé la session après l’ajout au groupe.
 
 🟩 5️⃣ Vérification du groupe Docker
 Exécute :
@@ -477,6 +469,7 @@ Code
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 🟦 6️⃣ Résumé clair
+
 Étape	État	Commentaire
 Suppression dépôt erroné	✅ OK	Virginia supprimé
 Ajout dépôt Jammy	✅ OK	Dépôt reconnu
@@ -484,15 +477,12 @@ Installation Docker	✅ OK	Tous les paquets installés
 Service Docker	✅ OK	Actif et fonctionnel
 Test hello-world	⚠️ À refaire	Probablement droits utilisateur
 
-
 🟩 7️⃣ Prochaine étape
 Une fois le test validé, tu pourras enchaîner sur :
 
-Installer Docker Compose
-
-Monter le NAS dans /mnt/infradata
-
-Déployer Netdata
+- Installer Docker Compose
+- Monter le NAS dans /mnt/infradata
+- Déployer Netdata
 
 Tu as corrigé le dépôt, installé Docker proprement, et ton démon tourne.
 Il ne reste qu’à ajouter ton utilisateur au groupe Docker et relancer le test pour valider la configuration.
@@ -542,7 +532,7 @@ Donc :
 ✅ Images OK
 ✅ Conteneur exécuté sans erreur
 
-Tu ne peux pas faire mieux comme test.
+- Tu ne peux pas faire mieux comme test.
 
 2️⃣ sudo systemctl status docker — service nickel
 Tu as ensuite :
@@ -562,21 +552,12 @@ bash
         CPU: 1.786s
 Loaded → service bien installé.
 
-Active: active (running) → Docker tourne.
-
-Main PID: dockerd → le démon Docker est en marche.
-
-Les logs en dessous montrent :
-
-initialisation,
-
-écoute sur /run/docker.sock,
-
-image hello-world téléchargée,
-
-conteneur créé puis supprimé.
-
-Tout est cohérent avec ton docker run hello-world.
+- Active: active (running) → Docker tourne.
+- Main PID: dockerd → le démon Docker est en marche.
+- écoute sur /run/docker.sock,
+- image hello-world téléchargée,
+- conteneur créé puis supprimé.
+- Tout est cohérent avec ton docker run hello-world.
 
 3️⃣ Pourquoi tu te retrouves avec l’écran “SUMMARY OF LESS COMMANDS”
 Ça vient d’ici :
@@ -605,21 +586,18 @@ Ce n’est pas une erreur, juste un comportement normal de Linux.
 4️⃣ Sur le copier‑coller “un peu spécial”
 Tu as raison, PuTTY a sa logique :
 
-Copier : tu sélectionnes du texte → il est automatiquement copié dans le presse‑papiers.
-
-Coller : clic droit dans la fenêtre → le texte est collé là où est ton curseur.
+- Copier : tu sélectionnes du texte → il est automatiquement copié dans le presse‑papiers.
+- Coller : clic droit dans la fenêtre → le texte est collé là où est ton curseur.
 
 Les pièges classiques :
 
-Si tu colles une commande incomplète ou avec des retours à la ligne bizarres, ça peut lancer plusieurs commandes ou tronquer.
-
-Si tu es dans less (comme avec systemctl status), le clic droit ne colle pas dans le shell, mais dans le pager.
+- Si tu colles une commande incomplète ou avec des retours à la ligne bizarres, ça peut lancer plusieurs commandes ou tronquer.
+- Si tu es dans less (comme avec systemctl status), le clic droit ne colle pas dans le shell, mais dans le pager.
 
 Réflexe à prendre :
 
-Si tu vois SUMMARY OF LESS COMMANDS → tape q.
-
-Vérifie que tu es bien sur une ligne du type :
+- Si tu vois SUMMARY OF LESS COMMANDS → tape q.
+- Vérifie que tu es bien sur une ligne du type :
 
 bash
 sebastien@mint-infra-server:~$
@@ -628,32 +606,22 @@ Ensuite seulement, tu colles ta commande.
 5️⃣ Où tu en es maintenant (et c’est très bon)
 Docker est installé
 
-Docker est actif
-
-docker run hello-world → succès complet
-
-systemctl status docker → service propre, stable
-
-Tu as franchi une grosse étape de ton infra Mint‑Infra.
+- Docker est actif
+- docker run hello-world → succès complet
+- systemctl status docker → service propre, stable
+- Tu as franchi une grosse étape de ton infra Mint‑Infra.
 
 6️⃣ Prochaines briques possibles
 Maintenant qu’on a Docker, on peut :
 
-Installer Docker Compose “classique” (binaire docker-compose) si tu veux l’avoir en plus du plugin.
-
-Préparer le montage du NAS dans /mnt/infradata pour que tes conteneurs accèdent à tes données.
-
-Installer Netdata via Docker pour monitorer ta VM et ton futur stack.
-
-Tu peux me dire simplement :
-
-“On fait Docker Compose”
-
-ou “On prépare le montage NAS”
-
-ou “On installe Netdata”
-
-Et on continue dans la même logique, propre, étape par étape.
+- Installer Docker Compose “classique” (binaire docker-compose) si tu veux l’avoir en plus du plugin.
+- Préparer le montage du NAS dans /mnt/infradata pour que tes conteneurs accèdent à tes données.
+- Installer Netdata via Docker pour monitorer ta VM et ton futur stack.
+- Tu peux me dire simplement :
+-- “On fait Docker Compose”
+- ou “On prépare le montage NAS”
+- ou “On installe Netdata”
+- Et on continue dans la même logique, propre, étape par étape.
 
 On fait Docker Compose stp
 Parfait Sébastien, on enchaîne avec Docker Compose, et tu vas voir : maintenant que Docker Engine est propre, Compose va s’installer comme une lettre à la poste.
@@ -692,11 +660,11 @@ Code
 docker-compose
 (sans espace)
 
-Si tu veux l’avoir aussi, pour compatibilité totale, on peut l’installer proprement.
+ Si tu veux l’avoir aussi, pour compatibilité totale, on peut l’installer proprement.
 
 🔧 Installation du binaire docker-compose :
 bash
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "<https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-$(uname> -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 Puis :
 
 bash
@@ -725,18 +693,15 @@ docker-compose version
 Et tu me donnes les deux sorties.
 Comme ça, je valide que tu as :
 
-la version moderne (obligatoire),
-
-la version legacy (optionnelle mais utile).
+- la version moderne (obligatoire),
+- la version legacy (optionnelle mais utile).
 
 🟦 Prochaine étape après Compose
 Dès que Compose est validé, on pourra attaquer :
 
-Monter le NAS dans /mnt/infradata
-
-Installer Netdata via Docker
-
-Créer ton premier docker-compose.yml
+- Monter le NAS dans /mnt/infradata
+- Installer Netdata via Docker
+- Créer ton premier docker-compose.yml
 
 Tu me donnes les deux versions (docker compose et docker-compose), et on continue.
 
@@ -786,25 +751,21 @@ Docker Compose version v2.29.2
 Tu as donc une compatibilité totale.
 
 🟩 3) Pourquoi c’est excellent d’avoir les deux
+
 Commande	Type	Usage
 docker compose	Moderne (plugin)	Tous les projets récents, Docker Engine natif
 docker-compose	Legacy (binaire)	Compatibilité avec anciens tutos / scripts
-
 
 Tu peux suivre n’importe quel tutoriel, ancien ou récent, sans jamais être bloqué.
 
 🟦 4) Ton installation est propre, stable, et pro
 Tu as :
 
-Docker Engine 29.5.3
-
-Buildx 0.34.1
-
-Compose plugin 5.1.4
-
-Compose binaire 2.29.2
-
-Containerd 2.2.4
+- Docker Engine 29.5.3
+- Buildx 0.34.1
+- Compose plugin 5.1.4
+- Compose binaire 2.29.2
+- Containerd 2.2.4
 
 Git installé automatiquement (utile pour les projets Docker)
 
@@ -816,11 +777,9 @@ Tu as déjà pris le bon réflexe.
 
 PuTTY demande un petit temps d’adaptation, mais une fois que tu as compris :
 
-sélection = copie
-
-clic droit = coller
-
-q pour quitter less
+- sélection = copie
+- clic droit = coller
+- q pour quitter less
 
 … tu deviens ultra‑rapide.
 
@@ -829,13 +788,122 @@ Et tu l’as déjà intégré.
 🟦 6) Prochaine étape logique
 Maintenant que Docker + Compose sont installés, on peut attaquer la suite :
 
-Monter le NAS dans /mnt/infradata
-
-Installer Netdata via Docker
-
-Créer ton premier docker-compose.yml
-
-Configurer ton réseau Docker proprement
+- Monter le NAS dans /mnt/infradata
+- Installer Netdata via Docker
+- Créer ton premier docker-compose.yml
+- Configurer ton réseau Docker proprement
 
 Tu me dis ce que tu veux poser comme brique maintenant, et on continue dans la même dynamique :
 propre, structuré, professionnel, et agréable à suivre.
+
+---
+
+## Mise A Jour SMB NAS <-> Mint (2026-06-20)
+
+### Constat Et Cause Racine
+
+- Le montage CIFS existant `//192.168.8.220/InfraData -> /mnt/infradata` fonctionnait deja.
+- L'erreur GUI "Impossible de monter l'emplacement" venait de la phase de decouverte/listage SMB, pas d'une panne CIFS globale.
+- Le partage `Partage` n'existe pas sur le NAS (liste reelle detectee: `Public`, `Multimedia`, `SebInfra`, `InfraData`, `DATA-500Go`).
+
+### Verification Samba Cote NAS (depuis Mint)
+
+```bash
+sudo smbclient -m SMB3 -W WORKGROUP -L //192.168.8.220 -A /etc/smbcredentials
+```
+
+Resultat utile:
+
+- SMBv3 joignable;
+- credentials valides;
+- partages visibles;
+- `Partage` absent.
+
+### Montage CIFS Permanent (point de montage /mnt/partage)
+
+Objectif: conserver le nom local `/mnt/partage` avec un partage NAS existant.
+
+```bash
+sudo mkdir -p /mnt/partage
+sudo chown root:root /mnt/partage
+sudo chmod 755 /mnt/partage
+```
+
+Ligne `fstab` appliquee:
+
+```fstab
+//192.168.8.220/InfraData /mnt/partage cifs credentials=/etc/smbcredentials,iocharset=utf8,vers=3.0,uid=1000,gid=1000,forceuid,forcegid,file_mode=0664,dir_mode=0775,nofail,_netdev,x-systemd.automount 0 0
+```
+
+Activation et test:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart mnt-partage.automount
+ls /mnt/partage >/dev/null
+mount | egrep '/mnt/partage|cifs'
+```
+
+### Synchronisation UID/GID
+
+Mapping applique pour l'utilisateur Mint `sebastien`:
+
+- `uid=1000`
+- `gid=1000`
+
+Validation ecriture:
+
+```bash
+sudo -u sebastien bash -lc 'touch /mnt/partage/.uidgid_test && ls -l /mnt/partage/.uidgid_test && rm -f /mnt/partage/.uidgid_test'
+```
+
+Resultat attendu:
+
+- fichier cree en `sebastien sebastien`;
+- ecriture OK sans erreur de droits.
+
+### Notes Importantes
+
+- Le compte SMB actuellement utilise dans `/etc/smbcredentials` est `SebAdminNAS`.
+- Si tu veux forcer un mapping d'identite strict cote NAS avec l'utilisateur `sebastien`, il faut creer/valider ce compte sur le NAS avec les ACL adaptees, puis mettre a jour `/etc/smbcredentials`.
+
+### Tentative Bascule `sebastien` (etat actuel)
+
+Test effectue le `2026-06-20`:
+
+```bash
+sudo smbclient -m SMB3 -W WORKGROUP -L //192.168.8.220 -A /etc/smbcredentials-sebastien
+```
+
+Resultat:
+
+- `NT_STATUS_LOGON_FAILURE`
+
+Interpretation:
+
+- l'utilisateur `sebastien` n'est pas valide en SMB sur le NAS, ou son mot de passe SMB ne correspond pas, ou ses ACL ne permettent pas l'acces au share.
+
+Action de securisation appliquee:
+
+- suppression du fichier temporaire `/etc/smbcredentials-sebastien`;
+- retour a l'etat stable et fonctionnel avec `/etc/smbcredentials` (`SebAdminNAS`).
+
+### Procedure NAS pour finaliser la bascule vers `sebastien`
+
+1. Sur QTS/QNAP: creer (ou verifier) l'utilisateur `sebastien`.
+2. Donner les droits SMB sur le partage `InfraData` (RW minimum sur le chemin vise).
+3. Verifier que l'auth SMB locale est active pour cet utilisateur.
+4. Revenir sur Mint et recreer `/etc/smbcredentials-sebastien`.
+5. Tester l'auth:
+
+```bash
+sudo smbclient -m SMB3 -W WORKGROUP -L //192.168.8.220 -A /etc/smbcredentials-sebastien
+```
+
+6. Si OK, remplacer dans `/etc/fstab` la valeur `credentials=/etc/smbcredentials` par `credentials=/etc/smbcredentials-sebastien`, puis:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart mnt-partage.automount
+ls /mnt/partage >/dev/null
+```
