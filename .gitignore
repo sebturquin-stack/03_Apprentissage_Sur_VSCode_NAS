@@ -9,3 +9,9 @@ npm-debug.log*
 # OS / Explorer noise
 Thumbs.db
 .DS_Store
+
+# Local secrets
+.env
+
+# Temporary NAS working area (contains generated secrets during hardening)
+_tmp_nas_core/hardening/

@@ -166,6 +166,32 @@ Trace journal suggeree:
 - Commande cle (optionnel): `docker compose ps`
 - Fichier(s) touches (optionnel): `06_Infra_Stable_VM_Linux_&_Win10/`, `06_Infra_Stable_VM_Linux_&_Win10/01_Installer_VM_Mint_basé Ubuntu-22.04.md/03_Installation_VM_Mint-infra-Server.md`, `06_Infra_Stable_VM_Linux_&_Win10/02_Docker_Engine_sur_Linux_Mint/01_Installation_Docker_Engine.md`, `06_Infra_Stable_VM_Linux_&_Win10/01_Installer_VM_Mint_basé Ubuntu-22.04.md/04_Installation_Terminal_PuTTY.md`, `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
 
+### [2026-06-21 00:15] | OS: Win10 | Machine: SEB-LAPTOP-AX200
+
+- Objectif de la session: finaliser le chantier backup VM QNAP et cloturer la documentation d exploitation
+- Ce que j ai fait (3 lignes max):
+  1. Validation complete du flux backup QNAP (export disque+xml, status files, log, rotation KEEP_LAST=7)
+  2. Production des docs d exploitation: checklist hebdo, maintenance, restauration
+  3. Commit+push du lot principal puis ajout du journal hors commit pour prochain passage
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): committer le journal restant et reprendre le fil Dockge/Netdata de la phase 2
+- Commande cle (optionnel): `git push`
+- Fichier(s) touches (optionnel): `README_qnap_backup_final.md`, `README_qnap_backup_checklist.md`, `README_qnap_backup_maintenance.md`, `README_qnap_backup_restore.md`, `vm_backup_qnap_host_fixed.sh`, `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
+
+### [2026-06-23 23:10] | OS: Win10 | Machine: SEB-LAPTOP-AX200
+
+- Objectif de la session: stabiliser le chantier NAS Docker puis preparer une cloture propre de fin de soiree
+- Ce que j ai fait (3 lignes max):
+  1. Reprise et verification du socle NAS (Container Station/Docker) avec retour en etat fonctionnel confirme
+  2. Nettoyage des terminaux puis reouverture d une session SSH propre vers `SebInfraNAS` pour repartir sur une base saine
+  3. Consolidation du suivi de session (secrets Authelia generes dans `.env`, troubleshooting conserve, et priorite commit confirmee)
+- Resultat: OK
+- Blocage (si oui): generation du hash Argon2 Authelia non finalisee ce soir (a reprendre en environnement stable)
+- Prochaine action (1 seule): faire un commit cible du journal et des fichiers valides, puis reprendre la generation du hash Argon2 a la prochaine session
+- Commande cle (optionnel): `ssh SebInfraNAS`
+- Fichier(s) touches (optionnel): `.env`, `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/02_Journal_Session_Express_MCP_Netdata_Win10.md`
+
 ## Regle Ultra Simple
 
 - Toujours finir une session par 1 entree.
