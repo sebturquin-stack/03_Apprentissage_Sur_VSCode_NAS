@@ -211,3 +211,46 @@ But: garder le fil entre Linux et Win10 en moins de 30 secondes par entree.
 - Prochaine action (1 seule): conserver la config en l etat et lancer uniquement le check anti-regression apres reboot VM
 - Commande cle (optionnel): `sudo docker logs netdata --tail 200 | grep -E "Failed to initialize SQLite|unable to open database file|fatal" || echo OK no fatal pattern`
 - Fichier(s) touches (optionnel): `05_Infra/netdata/docker-compose.yml`, `05_Infra/netdata/README.md`, `05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md`
+
+### [2026-06-25 22:38] | OS: Linux | Machine: SebInfraNAS (QNAP TS-264)
+
+- Objectif de la session: nettoyer l environnement Docker NAS en supprimant le conteneur fantome Netdata et son volume associe
+- Contexte:
+  1. Utilisateur SSH: SebAdminNAS
+  2. Docker QNAP: `/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker`
+  3. Conteneur a conserver: `netdata-nas`
+  4. Volume a conserver: `netdata_data`
+- Sequence executee:
+  1. Arret du conteneur fantome:
+    `/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker stop 01_Netdata`
+  2. Suppression du conteneur:
+    `/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker rm 01_Netdata`
+  3. Suppression du volume associe:
+    `/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker volume rm mcp-netdata_netdata_data`
+  4. Verification conteneurs:
+    `/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker ps -a`
+  5. Verification volumes:
+    `/share/CACHEDEV1_DATA/.qpkg/container-station/bin/docker volume ls`
+- Resultat attendu:
+  1. Seuls `netdata-nas` et `portainer_agent` restent actifs
+  2. Le volume `mcp-netdata_netdata_data` est supprime
+  3. Le volume `netdata_data` reste present
+  4. Etat final: environnement NAS propre et stable
+- Marqueur de succes: `CLEANUP_NETDATA_OK`
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): conserver cette sequence comme procedure standard avant redemarrage de stack Netdata
+- Fichier(s) touches (optionnel): `05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md`
+
+### [2026-06-26 00:40] | OS: Linux | Machine: sebastien-HP-Pavilion-Notebook
+
+- Objectif de la session: consolider la documentation de remise en etat NAS et unifier la procedure SSH Win10/Linux
+- Ce que j ai fait (3 lignes max):
+  1. Creation des documents `03_Analyse_Stabilisation_Netdata_NAS_SebInfraNAS.md`, `04_Procedure_Nettoyage_Doublons_Container_Station.md` et `05_Suppression_Securisee_Sous_Dossiers_Fantomes_Container_Station.md`
+  2. Mise a jour de la doc SSH pour couvrir Win10 + Linux dans un seul fichier
+  3. Validation des marqueurs de fin de procedure (`STABILISATION_NETDATA_NAS_OK`, `CLEANUP_CONTAINER_STATION_OK`)
+- Resultat: OK
+- Blocage (si oui): aucun
+- Prochaine action (1 seule): reprendre demain avec verification operationnelle post-redemarrage NAS si necessaire
+- Commande cle (optionnel): `ssh SebInfraNAS`
+- Fichier(s) touches (optionnel): `06_Infra_Stable_VM_Linux_&_Win10/03_PHASE_2_Monitoring_&_Orchestration/01_Netoyage_&_Remise _en_Etat/03_Analyse_Stabilisation_Netdata_NAS_SebInfraNAS.md`, `06_Infra_Stable_VM_Linux_&_Win10/03_PHASE_2_Monitoring_&_Orchestration/01_Netoyage_&_Remise _en_Etat/04_Procedure_Nettoyage_Doublons_Container_Station.md`, `06_Infra_Stable_VM_Linux_&_Win10/03_PHASE_2_Monitoring_&_Orchestration/01_Netoyage_&_Remise _en_Etat/05_Suppression_Securisee_Sous_Dossiers_Fantomes_Container_Station.md`, `05_Reprise_Projet_NetData/06_Installation_Claude_Desktop_Win10/05_Connexion_SSH_Propre_VSCode_Win10.md`, `05_Reprise_Projet_NetData/03_Installation_Claude_Desktop_Linux_Debian/07_Journal_Session_Express_MCP_Netdata.md`
